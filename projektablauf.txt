@@ -1,0 +1,31 @@
+Developer:
+- FE & BE getrennt (K.O.-Kriterium)
+-- Daten werden als JSON zwischen FE & BE ausgetauscht
+-- Datenbank-Statements nur über BE möglich
+- übersichtliche Ordnerstruktur (css, img, js, sites, models, etc.) 
+- Datenbank und zentrale DB-Service-Klasse vorhanden
+- Code kommentiert
+
+Gast-User
+Gäste (nicht registrierte User) finden folgende Funktionalitäten vor:
+- Registrierung/Login: Als User möchte ich Formulare, um mich registrieren und anmelden können.
+- Produkte ansehen: Als User möchte ich eine Ansicht, um die Produkte sehen zu können.
+- Produkte in den Warenkorb legen: Als User möchte ich einen Warenkorb, um meine gewünschten Bestellartikel ablegen zu können.
+- Produkte suchen: Als User möchte ich eine Suchfunktion, um bestimmte Produkte suchen zu können.
+- Warenkorb bearbeiten: Als User möchte ich meinen Warenkorb bearbeiten können, um vor dem Kauf meine Bestellung zu ändern.
+
+
+Customer (registrierter User)
+Registrierte User (Customer) finden zusätzlich folgende Funktionalitäten vor:
+- Logout: Als Customer will ich eine Logout-Möglichkeit, um mich von meinem Konto abmelden zu können.
+- Produkte bestellen (kein Bezahlvorgang!): Als Customer will ich Produkte bestellen können, damit ich die Produkte besitze.
+- Bestellungen und Rechnungen einsehen: Als Customer will ich meinen Bestell-Verlauf sehen, um meine Bestellungen und Rechnungen kontrollieren zu können.
+- Eigene Daten bearbeiten: Als Customer will ich meine Kontodaten bearbeiten können, um Änderungen vornehmen zu können.
+
+Administrator*in
+Administrator*innen des Webshops finden folgenden Funktionalitäten vor:
+- Login & Logout: Als Admin will ich mich anmelden können, um über das Frontend administrieren zu können.
+- Produkte anlegen: Als Admin will ich Produkte anlegen können, um neue Produkte im Katalog hinzuzufügen.
+- Produkte bearbeiten: Als Admin will ich Produkte beabreiten können, um Produktinformationen aktualisieren oder löschen zu können.
+- Kund*innen (Customer) verwalten: Als Admin will Customer verwalten können, um ihre Kontendaten ändern zu können.
+- Gutscheine verwalten (Bonus): Als Admin will ich eine Gutschein-Übersicht, um alle Gutscheincodes verwalten zu können.
