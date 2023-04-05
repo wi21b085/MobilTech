@@ -24,7 +24,7 @@ Registrierte User (Customer) finden zusätzlich folgende Funktionalitäten vor:
 
 Administrator*in
 Administrator*innen des Webshops finden folgenden Funktionalitäten vor:
-- Login & Logout: Als Admin will ich mich anmelden können, um über das Frontend administrieren zu können.
+[- Login & Logout: Als Admin will ich mich anmelden können, um über das Frontend administrieren zu können.]
 - Produkte anlegen: Als Admin will ich Produkte anlegen können, um neue Produkte im Katalog hinzuzufügen.
 - Produkte bearbeiten: Als Admin will ich Produkte beabreiten können, um Produktinformationen aktualisieren oder löschen zu können.
 - Kund*innen (Customer) verwalten: Als Admin will Customer verwalten können, um ihre Kontendaten ändern zu können.
