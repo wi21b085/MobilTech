@@ -18,3 +18,17 @@ height: 30;
     border-radius: 10px;
     box-shadow: 5px 10px #afadad;
 }
+.profil {
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: solid rgb(176, 173, 173) 4px;
+    background-color: #E5E5E3;
+
+
+}
+
+
