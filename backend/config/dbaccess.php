@@ -1,8 +1,8 @@
 <?php
-if (str_contains($_SERVER['REQUEST_URI'], '/dbaccess.php')) {
+/*if (str_contains($_SERVER['REQUEST_URI'], '/dbaccess.php')) {
     header("Location:../../frontend/index.html");
     die();
-}
+}*/
 
 $host = "localhost";
 $user = "mobiltechadmin";
