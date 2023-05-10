@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `o_datum` date NOT NULL DEFAULT current_timestamp(),
+  `o_datum` datetime NOT NULL DEFAULT current_timestamp(),
   `endpreis` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   `anzahl` tinyint(4) NOT NULL
