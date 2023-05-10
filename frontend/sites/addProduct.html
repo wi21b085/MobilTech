@@ -13,10 +13,19 @@
 <body>
 
     <main style="margin-top: 100px;margin-bottom: 100px;">
-        <div class="contianer d-flex justify-content-center align-items-center">
-            <div id="success-message" style="display: none;">
-                The data was inserted successfully!
+        <center>
+            <div class="alert alert-success" id="message-success" style="display: none; width: 50%;" role="alert">
+                Das Produkt wurde hinzugefügt!
             </div>
+            <div class="alert alert-danger" id="message-failed" style="display: none; width: 50%;" role="alert">
+                Das Produkt konnte nicht hinzugefügt werden! 
+            </div>
+            <div class="alert alert-danger" id="message-error" style="display: none; width: 50%;" role="alert">
+                Etwas ist schief gegangen!
+            </div>
+        </center>
+        <div class="contianer d-flex justify-content-center align-items-center">
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-6 mx-auto">
