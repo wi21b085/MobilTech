@@ -7,7 +7,6 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
-  
     $product_list = array();
    
    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -16,9 +15,11 @@
         array_push($product_list,$product);
     }
 
+    $stmt->close();
 
-    $product_json = json_encode($product_list);
-    echo $product_json;
+    //$product_json = json_encode($product_list);
+
+    
     
 
 

@@ -1,6 +1,5 @@
 $("form").on("submit", function (event) {
    event.preventDefault(); // prevent default form submission behavior
-   // var formData = $(this).serialize(); // serialize form data into a query string
    var name = $("#name").val();
    var preis = $("#preis").val();
    var firma = $("#firma").val();
@@ -9,15 +8,18 @@ $("form").on("submit", function (event) {
 
     $.ajax({
         type: "POST",
-        dataType: "json",
         data: {
-            name: name,
-            preis: preis,
-            firma: firma,
-            kurzbeschreibung: kurzbeschreibung,
-            text: text
+            method:"addProduct",
+            param:JSON.stringify({
+                name: name,
+                preis: preis,
+                firma: firma,
+                kurzbeschreibung: kurzbeschreibung,
+                text: text
+            })
         },
-        url: "../../backend/logic/addProduct_logic.php",
+        dataType: "json",
+        url: "../../backend/logic/requestHandler.php",
         success: function (response) {
             if (response.success) {
                 $("#message-success").show().fadeOut(2700); 
@@ -26,7 +28,7 @@ $("form").on("submit", function (event) {
 
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function (error) {
             $("#message-error").show();
         }
     });

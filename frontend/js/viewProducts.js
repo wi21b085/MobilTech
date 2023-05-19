@@ -145,12 +145,15 @@ $(document).ready(function () {
 
 
 
-let url = "../../backend/logic/viewProducts_products_logic.php";
+let url = "../../backend/logic/requestHandler.php";
 
 let config = {
     url: url,
     type: "GET",
     dataType: "json",
+    data: {
+    method:"viewProduct"
+    },
     success: function (response) {
         console.log(response);
         for (let i in response) {

@@ -1,5 +1,6 @@
 <?php
 //include("../config/dbaccess.php");
+
 class DataHandler
 {
 
@@ -33,4 +34,17 @@ class DataHandler
     public function logout()
     {;
     }
+    public function viewProduct(){
+
+        include("../logic/viewProducts_logic.php");
+        return $product_list;
+    }
+    public function addProduct($param){
+        $response = [];
+        include("../logic/addProduct_logic.php");
+        return $response;
+    }
+
+
+
 }
