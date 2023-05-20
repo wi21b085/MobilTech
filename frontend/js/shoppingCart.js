@@ -64,9 +64,9 @@ function addToCart(productId, quantity, price, name, bild) {
       text: '+'
     });
   
-    $itemDetails.css('padding-left', '10px'); // Add right padding to the item details
+    $itemDetails.css('padding-left', '10px'); 
   
-    $bildInput.css('max-width', '100%'); // Add max-width CSS property for responsiveness
+    $bildInput.css('max-width', '100%'); 
     $quantityWrapper.append($quantityMinus, $quantityInput, $quantityPlus);
     $itemDetails.append($nameElement, $priceElement, $quantityWrapper);
     $cartItem.append($bildInput, $itemDetails);
