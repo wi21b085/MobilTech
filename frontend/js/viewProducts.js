@@ -76,8 +76,10 @@ function ladeProduct(product) {
 
     let $cardLink = $('<a>', {
         class: 'btn btn-primary',
-        //href: 'hhhh'+product.id,
-        text: 'Kauf'
+        text: 'Kauf',
+        click: function() {
+            addToCart(product.id, 1, product.preis, product.name, product.bild);
+        }
     });
 
 

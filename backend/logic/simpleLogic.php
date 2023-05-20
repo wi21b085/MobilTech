@@ -27,6 +27,9 @@ class SimpleLogic
             case "addProduct":
                 $result = $this->dh->addProduct($param);
                 break;
+            case "addToCart":
+                $result = $this->dh->addToCart($param);
+                break;
             default:
                 $result = null;
                 break;
