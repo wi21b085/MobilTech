@@ -78,7 +78,7 @@ function ladeProduct(product) {
         class: 'btn btn-primary',
         text: 'Kauf',
         click: function() {
-            addToCart(product.id, 1, product.preis, product.name);
+            addToCart(product.id, 1, product.preis, product.name, product.bild);
         }
     });
 

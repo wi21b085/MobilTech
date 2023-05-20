@@ -5,10 +5,10 @@ include_once("../config/dbaccess.php");
     $productId = $data->productId;
     $quantity = $data->quantity;
 
-    $stmt = $db->prepare("SELECT name, preis FROM produkte WHERE id = ?");
+    $stmt = $db->prepare("SELECT name, preis, bild FROM produkte WHERE id = ?");
     $stmt->bind_param("i", $productId);
     $stmt->execute();
-    $stmt->bind_result($name, $price);
+    $stmt->bind_result($name, $price, $bild);
     $stmt->fetch();
     $stmt->close();
 
@@ -16,7 +16,8 @@ include_once("../config/dbaccess.php");
       'productId' => $productId,
       'name' => $name,
       'price' => $price,
-      'quantity' => $quantity
+      'quantity' => $quantity,
+      'bild' => $bild
     );
 
     if (!isset($_SESSION['cart'])) {
@@ -28,7 +29,8 @@ include_once("../config/dbaccess.php");
     $response = array(
       'name' => $name,
       'price' => $price,
-      'quantity' => $quantity
+      'quantity' => $quantity,
+      'bild' => $bild
     );
     
 
