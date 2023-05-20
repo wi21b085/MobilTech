@@ -28,7 +28,16 @@ class DataHandler
     }
 
     public function login($param)
-    {;
+    {
+        $data = json_decode($param);
+        $username = $data->username;
+        $password = $data->password;
+        $check = $data->check;
+        $res = []; 
+        $res["url"] = "";
+        $res["success"]  = false;
+        include("../logic/login.php");
+        return $res;
     }
 
     public function logout()
