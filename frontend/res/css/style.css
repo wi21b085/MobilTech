@@ -1,14 +1,14 @@
-<<<<<<< HEAD
-.img{
-width: 30;
-height: 30;
+
+#carouselExampleDark{
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
-.werbung{
-    width: 1130px; 
-    height: 250px;
+#werbung{
+    border-style: groove;
     text-align: center;
+    height: 100px;
+    margin-bottom: 100px;
 }
-=======
 .login-form {
     margin: auto;
     max-width: 500px;
@@ -19,4 +19,13 @@ height: 30;
     border-radius: 10px;
     box-shadow: 5px 10px #afadad;
 }
->>>>>>> master
+#shopping-cart{
+    margin-left: 20px;
+}
+#categories{
+    margin-bottom: 100px;
+}
+
+  
+  
+
