@@ -30,10 +30,14 @@
 
 
 }
-
 #shopping-cart{
     margin-left: 20px;
+    border-color: transparent;
+    background-color: transparent;
 }
 #categories{
     margin-bottom: 100px;
+}
+footer{
+    padding-bottom: 50px;
 }
