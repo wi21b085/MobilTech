@@ -1,5 +1,6 @@
 <?php
 //include("../config/dbaccess.php");
+
 class DataHandler
 {
 
@@ -27,10 +28,37 @@ class DataHandler
     }
 
     public function login($param)
-    {;
+    {
+        $data = json_decode($param);
+        $username = $data->username;
+        $password = $data->password;
+        $check = $data->check;
+        $res = []; 
+        $res["url"] = "";
+        $res["success"]  = false;
+        include("../logic/login.php");
+        return $res;
     }
 
     public function logout()
     {;
     }
+    public function viewProduct(){
+
+        include("../logic/viewProducts_logic.php");
+        return $product_list;
+    }
+    public function addProduct($param){
+        $response = [];
+        include("../logic/addProduct_logic.php");
+        return $response;
+    }
+    public function addToCart($param){
+        $data = json_decode($param);
+
+        $response = [];
+        require_once("../logic/shoppingCart_logic.php");
+        return $response;
+    }
+
 }

@@ -16,121 +16,125 @@
 
 <body>
 
-    <div class="col-lg-6 col-md-6 mb-lg-1 mb-5 login-form" id="registerDiv">
+    <main>
+        <div class="col-lg-6 col-md-6 mb-lg-1 mb-5 login-form" id="registerDiv">
 
-        <h1>Registrieren</h1>
-        <form enctype="multipart/form-data" method="POST">
-            <div class="container-fluid">
-
-                <h3 style="text-align:center">Konto erstellen</h3>
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="anrede">Anrede: </label><br />
-                    <select class="form-select" aria-label="Default select example" id="anrede" name="anrede">
-                        <option value="Herr">Herr</option>
-                        <option value="Frau">Frau</option>
-                        <option value="keine Angabe" selected>keine Angabe</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="vorname" class="form-label">
-                        Vorname
-                    </label>
-                    <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Jane" value=""
-                        required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="nachname" class="form-label">
-                        Nachname
-                    </label>
-                    <input type="text" class="form-control" name="nachname" id="nachname" placeholder="Smith" value=""
-                        required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="username" class="form-label">
-                        Username
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                        <input type="text" class="form-control" name="username" id="username"
-                            placeholder="exampleUser123" value="" required>
-                    </div>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="email" class="form-label">
-                        E-Mail
-                    </label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="example@mail.com"
-                        required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="password" class="form-label">
-                        Passwort
-                    </label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="" required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="password2" class="form-label">
-                        Passwort wiederholen
-                    </label>
-                    <input type="password" class="form-control" name="password2" id="password2" placeholder="" required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="adresse" class="form-label">
-                        Adresse
-                    </label>
-                    <input type="text" class="form-control" name="adresse" id="adresse" placeholder="" required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="plz" class="form-label">
-                        Postleitzahl
-                    </label>
-                    <input type="text" pattern="[0-9]{4}" class="form-control" name="plz" id="plz" placeholder=""
-                        required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
-                    <label for="ort" class="form-label">
-                        Ort
-                    </label>
-                    <input type="text" class="form-control" name="ort" id="ort" placeholder="" required>
-                </div>
-
-                <div class="col-lg-12 col-md-12 mb-lg-2 mb-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="agree" id="defaultCheck2" required>
-                        <label class="form-check-label" for="defaultCheck2">
-                            Ich akzeptiere die Nutzungsbedingungen.
-                        </label>
-                    </div>
-                </div>
-
+            <h1>Registrieren</h1>
+            <form enctype="multipart/form-data" method="POST">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 mb-lg-2 mb-5">
-                            <button type="button" id="register" class="btn btn-outline-dark">Registrieren</button>
-                        </div>
 
-                        <div class="col-lg-6 col-md-6 mb-lg-3 mb-2">
-                            <a href="login.html">Schon registriert? Hier geht es zum Login!</a>
+                    <h3 style="text-align:center">Konto erstellen</h3>
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="anrede">Anrede: </label><br />
+                        <select class="form-select" aria-label="Default select example" id="anrede" name="anrede">
+                            <option value="Herr">Herr</option>
+                            <option value="Frau">Frau</option>
+                            <option value="keine Angabe" selected>keine Angabe</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="vorname" class="form-label">
+                            Vorname
+                        </label>
+                        <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Jane" value=""
+                            required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="nachname" class="form-label">
+                            Nachname
+                        </label>
+                        <input type="text" class="form-control" name="nachname" id="nachname" placeholder="Smith"
+                            value="" required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="username" class="form-label">
+                            Username
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                            <input type="text" class="form-control" name="username" id="username"
+                                placeholder="exampleUser123" value="" required>
                         </div>
                     </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="email" class="form-label">
+                            E-Mail
+                        </label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="example@mail.com"
+                            required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="password" class="form-label">
+                            Passwort
+                        </label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder=""
+                            required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="password2" class="form-label">
+                            Passwort wiederholen
+                        </label>
+                        <input type="password" class="form-control" name="password2" id="password2" placeholder=""
+                            required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="adresse" class="form-label">
+                            Adresse
+                        </label>
+                        <input type="text" class="form-control" name="adresse" id="adresse" placeholder="" required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="plz" class="form-label">
+                            Postleitzahl
+                        </label>
+                        <input type="text" pattern="[0-9]{4}" class="form-control" name="plz" id="plz" placeholder=""
+                            required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-1 mb-1">
+                        <label for="ort" class="form-label">
+                            Ort
+                        </label>
+                        <input type="text" class="form-control" name="ort" id="ort" placeholder="" required>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-lg-2 mb-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="agree" id="defaultCheck2" required>
+                            <label class="form-check-label" for="defaultCheck2">
+                                Ich akzeptiere die Nutzungsbedingungen.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 mb-lg-2 mb-5">
+                                <button type="button" id="register" class="btn btn-outline-dark">Registrieren</button>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 mb-lg-3 mb-2">
+                                <a href="login.html">Schon registriert? Hier geht es zum Login!</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+            </form>
+        </div>
+    </main>
 
-            </div>
-        </form>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.js"
-        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-    <script src="../js/register.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+<script src="../js/register.js"></script>
 </body>
 
 </html>

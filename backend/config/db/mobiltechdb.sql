@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `o_datum` date NOT NULL DEFAULT current_timestamp(),
+  `o_datum` datetime NOT NULL DEFAULT current_timestamp(),
   `endpreis` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   `anzahl` tinyint(4) NOT NULL
@@ -83,6 +83,12 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 -- --------------------------------------------------------
+INSERT INTO `user` (`id`, `anrede`, `vorname`, `nachname`, `username`, `email`, `password`, `adresse`, `plz`, `ort`, `zahlung`, `status`, `admin`) VALUES
+(1, 'keine Angabe', 'Admin', 'Admin', 'admin', 'admin@admin.at', '$2y$10$PJ2c1Q6hn6Vm2wTILPZeguuZbz0Xf.cRROIPMAzmJtVI4VntlPIvG', 'Adminstraße 6', 1234, 'Wien', NULL, 1, 0),
+(2, 'keine Angabe', 'Test', 'User', 'user', 'user@mail.com', '$2y$10$.VCIiip3DEAXnmAhqK4/hOib1kAZrrbGMoPlJcxKdsrPs4grmtPtu', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
+(3, 'Herr', 'Kevin', 'Xhunga', 'wi21b025', 'wi21b025@technikum-wien.at', '$2y$10$VdLBGSWoi9cfHFv5HBBodO/N7wn/oL7MjfrzY0mlJ42U64tK8FDli', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
+(4, 'keine Angabe', 'Nahid', 'Nourani', 'wi21b089', 'wi21b089@technikum-wien.at', '$2y$10$vx2u.jt2Hwb3hevnLu4E1uU8I4HlI8MxuXL6602GSFpLVnqDcgVaW', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
+(5, 'keine Angabe', 'Hadi', 'Heydari', 'wi21b085', 'wi21b085@technikum-wien.at', '$2y$10$7.MsEeMM8UMTvXfX8IBhUuElyzpcRaAytjhnz7gQjtGkH9HddzIm6', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0);
 
 --
 -- Table structure for table `verlauf`
