@@ -1,9 +1,11 @@
 <?php
+
 include("../logic/simpleLogic.php");
 
 $request = $_SERVER['REQUEST_METHOD'];
 $param = "";
 $method = "";
+$bild = null; // Initialize the $files variable
 
 if ($request == "GET") {
     isset($_GET["method"]) ? $method = $_GET["method"] : false;
@@ -11,6 +13,13 @@ if ($request == "GET") {
 } else if ($request == "POST") {
     isset($_POST["method"]) ? $method = $_POST["method"] : false;
     isset($_POST["param"]) ? $param = $_POST["param"] : false;
+    
+    isset($_FILES["bild"]) ? $param = $_POST : false;
+    isset($_FILES["bild"]) ? $param["bild"] = $_FILES["bild"] : false;
+    //isset($_FILES["bild"]) ? $param = $_FILES["bild"] : false; // Check if $_FILES is set and assign it to $files
+} else {
+    response($request, 405, "Method not supported yet!");
+    exit;
 }
 
 $logic = new SimpleLogic();

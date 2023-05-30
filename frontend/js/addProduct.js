@@ -1,32 +1,27 @@
 $("form").on("submit", function (event) {
     event.preventDefault();
-    var name = $("#name").val();
-    var preis = $("#preis").val();
-    var firma = $("#firma").val();
-    var kurzbeschreibung = $("#kurzbeschreibung").val();
-    var text = $("#text").val();
-
+    
+    var formData = new FormData();
+    formData.append('method', "addProduct");
+    formData.append('name', $("#name").val());
+    formData.append('preis', $("#preis").val());
+    formData.append('firma', $("#firma").val());
+    formData.append('kurzbeschreibung', $("#kurzbeschreibung").val());
+    formData.append('text', $("#text").val());
+    
     var fileInput = document.getElementById("bild");
     var bild = fileInput.files[0];
-    console.log(bild);
+    formData.append('bild', bild, bild.name);
+
     
-    var requestData = {
-        method: "addProduct",
-        param: JSON.stringify({
-            name: name,
-            preis: preis,
-            firma: firma,
-            kurzbeschreibung: kurzbeschreibung,
-            text: text,
-            bild: bild.name
-        })
-    };
 
     $.ajax({
         type: "POST",
-        data: requestData,
-        dataType: "json",
+        data: formData,
+        processData: false,
+        contentType: false,
         url: "../../backend/logic/requestHandler.php",
+        //  url: "../../backend/logic/addProduct_logic.php",
         success: function (response) {
             if (response.success) {
                 $("#message-success").show().fadeOut(2700); 
