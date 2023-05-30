@@ -5,7 +5,7 @@ function addToCart(productId, quantity, price, name, bild) {
       dataType: "json",
       data: {
         method: "addToCart",
-        param: {
+        param: JSON.stringify({
         productId: productId,
         quantity: quantity,
         price: price,
@@ -13,7 +13,7 @@ function addToCart(productId, quantity, price, name, bild) {
         bild:bild
         
         
-    }
+    })
       },
       success: function(response) {
         console.log(bild)
