@@ -21,14 +21,20 @@ class SimpleLogic
             case "logout":
                 $result = $this->dh->logout();
                 break;
-            case "viewProduct":
-                $result = $this->dh->viewProduct();
-                break;
             case "addProduct":
                 $result = $this->dh->addProduct($param);
                 break;
             case "addToCart":
                 $result = $this->dh->addToCart($param);
+                break;
+            case "viewProduct":
+                $result = $this->dh->viewProduct();
+                break;
+            case "viewCustomers":
+                $result = $this->dh->viewCustomers();
+                break;
+            case "search":
+                $result = $this->dh->search($param);
                 break;
             default:
                 $result = null;

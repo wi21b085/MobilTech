@@ -6,7 +6,7 @@ if (isset($_FILES['bild'])) {
     $bild_tmp_name = $_FILES['bild']['tmp_name'];
 
     if ($bild_size > 100000000) {
-        $response = array("failed_size" => false);
+        $response = array("failed" => false);
     } else {
         $bild_ex = pathinfo($bild, PATHINFO_EXTENSION);
         $bild_ex_lc = strtolower($bild_ex);
@@ -27,7 +27,7 @@ if (isset($_FILES['bild'])) {
             
             $response = array("success" => true);
         } else {
-            $response = array("failed_exs" => false);
+            $response = array("failed" => false);
         }
     }
 }
