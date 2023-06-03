@@ -11,15 +11,15 @@ function addToCart(productId, quantity) {
       })
     },
     success: function (response) {
-      var storage = sessionStorage.getItem("cart"); // id:1
+      var storage = sessionStorage.getItem("cart");
       console.log(storage);
       var cart = [];
-      if (storage == null) { // false
+      if (storage == null) {
         cart.push(response);
         sessionStorage.setItem("cart", JSON.stringify(cart));
         formatCartData(response)
       }
-      else {//true
+      else {
         var cart = JSON.parse(storage);
         console.log(cart);
         var existingProduct = cart.find(product => product.productId === response.productId);
@@ -54,9 +54,7 @@ $(document).ready(function () {
     formatCartData(item);
   }
 })
-var $id = 0;
 function formatCartData(response) {
-  $id = response.productId;
   console.log(response)
   let $cartItem = $('<div>', {
     class: 'cart-item d-flex align-items-center border-bottom py-3',
@@ -108,8 +106,8 @@ function formatCartData(response) {
   }).click(function () {
     removeCartItem(response.productId);
   });
-  
-  
+
+
 
   $itemDetails.css('padding-left', '10px');
   $bildInput.css('max-width', '100%');
@@ -125,15 +123,15 @@ function formatCartData(response) {
     var storage = sessionStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var productIndex = cart.findIndex(product => product.productId == productId);
-  
+
     if (currentValue > 0) {
       $quantityInput.val(currentValue - 1);
       cart[productIndex].quantity--;
-  
+
       if (currentValue === 1) {
         cart.splice(productIndex, 1); // Remove the item from the cart array
         sessionStorage.setItem("cart", JSON.stringify(cart)); // Update the session storage
-  
+
         $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
           $cartItem.remove();
           updateTotalSum();
@@ -144,21 +142,21 @@ function formatCartData(response) {
       }
     }
   }
-  
+
 
   function increaseQuantity(productId) {
     let currentValue = parseInt($quantityInput.val());
     $quantityInput.val(currentValue + 1);
-  
+
     var storage = sessionStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var product = cart.find(product => product.productId === productId);
-  
+
     if (product) {
       product.quantity++;
       sessionStorage.setItem("cart", JSON.stringify(cart));
     }
-  
+
     updateTotalSum();
   }
 
@@ -166,12 +164,12 @@ function formatCartData(response) {
     var storage = sessionStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var productIndex = cart.findIndex(product => product.productId === productId);
-  
+
     if (productIndex > -1) {
       cart.splice(productIndex, 1);
       sessionStorage.setItem("cart", JSON.stringify(cart));
     }
-  
+
     $cartItem.remove();
     updateTotalSum();
   }
@@ -179,27 +177,42 @@ function formatCartData(response) {
 
 updateTotalSum();
 
+
+
+
+
+
 function updateTotalSum() {
   let totalSum = 0;
-  $('.cart-item').each(function () {
-    let quantity = parseInt($(this).find('.cart-item-quantity').val());
-    let price = parseFloat($(this).find('.cart-item-price').text());
-    totalSum += quantity * price;
-  });
 
-  $('#total-sum').remove();
+  // console.log($(".offcanvas-body").find("div.cart-item"))
+  if ($(".offcanvas-body").find("div.cart-item").length == 0) {
+    $(".offcanvas-body").empty()
+    $('.offcanvas-body').append("<div class='form-text alert alert-info' style='text-align:center'>Warenkorb ist leer.</div>");
+  } else {
+    $(".offcanvas-body").find($("div.form-text")).remove()
+    $('.cart-item').each(function () {
+      let quantity = parseInt($(this).find('.cart-item-quantity').val());
+      let price = parseFloat($(this).find('.cart-item-price').text());
+      totalSum += quantity * price;
+    });
 
-  let $totalSumElement = $('<div>', {
-    id: 'total-sum',
-    text: 'Total Sum: ' + totalSum.toFixed(2) + ' €'
-  });
-  $('.offcanvas-body').append($totalSumElement);
+    $('#total-sum').remove();
 
-  $('#kaufen-button').remove();
-  let $kaufenButton = $('<button>', {
-    id: 'kaufen-button',
-    class: 'btn btn-primary',
-    text: 'Kassa'
-  });
-  $('.offcanvas-body').append($kaufenButton);
+    let $totalSumElement = $('<div>', {
+      id: 'total-sum',
+      text: 'Total Sum: ' + totalSum.toFixed(2) + ' €',
+      class: 'alert alert-info', 
+    });
+    $('.offcanvas-body').append($totalSumElement);
+
+    $('#kaufen-button').remove();
+    let $kaufenButton = $('<button>', {
+      id: 'kaufen-button',
+      class: 'btn btn-primary',
+      text: 'Kassa'
+    });
+
+    $('.offcanvas-body').append($kaufenButton);
+  }
 }
