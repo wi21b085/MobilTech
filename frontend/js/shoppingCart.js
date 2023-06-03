@@ -48,14 +48,15 @@ function addToCart(productId, quantity) {
   });
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   var storage = sessionStorage.getItem("cart"); // id:1
   for (let item of JSON.parse(storage)) {
     formatCartData(item);
   }
 })
-
+var $id = 0;
 function formatCartData(response) {
+  $id = response.productId;
   console.log(response)
   let $cartItem = $('<div>', {
     class: 'cart-item d-flex align-items-center border-bottom py-3',
@@ -83,7 +84,9 @@ function formatCartData(response) {
   let $quantityMinus = $('<button>', {
     class: 'btn btn-sm btn-secondary',
     text: '-'
-  }).click(decreaseQuantity);
+  }).click(function () {
+    decreaseQuantity(response.productId);
+  });
   let $quantityInput = $('<input>', {
     type: 'number',
     class: 'cart-item-quantity form-control',
@@ -93,14 +96,20 @@ function formatCartData(response) {
   let $quantityPlus = $('<button>', {
     class: 'btn btn-sm btn-secondary',
     text: '+'
-  }).click(increaseQuantity);
+  }).click(function () {
+    increaseQuantity(response.productId);
+  });
   let $removeButton = $('<button>', {
     class: 'btn btn-sm btn-danger',
     css: {
       'width': '50%'
     },
     text: 'Remove'
-  }).click(removeCartItem);
+  }).click(function () {
+    removeCartItem(response.productId);
+  });
+  
+  
 
   $itemDetails.css('padding-left', '10px');
   $bildInput.css('max-width', '100%');
@@ -111,28 +120,58 @@ function formatCartData(response) {
 
   updateTotalSum();
 
-  function decreaseQuantity() {
+  function decreaseQuantity(productId) {
     let currentValue = parseInt($quantityInput.val());
+    var storage = sessionStorage.getItem("cart");
+    var cart = JSON.parse(storage);
+    var productIndex = cart.findIndex(product => product.productId == productId);
+  
     if (currentValue > 0) {
       $quantityInput.val(currentValue - 1);
-    }
-    if (currentValue === 1) {
-      $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
-        $cartItem.remove();
+      cart[productIndex].quantity--;
+  
+      if (currentValue === 1) {
+        cart.splice(productIndex, 1); // Remove the item from the cart array
+        sessionStorage.setItem("cart", JSON.stringify(cart)); // Update the session storage
+  
+        $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
+          $cartItem.remove();
+          updateTotalSum();
+        });
+      } else {
+        sessionStorage.setItem("cart", JSON.stringify(cart)); // Update the session storage
         updateTotalSum();
-      });
-    } else {
-      updateTotalSum();
+      }
     }
   }
+  
 
-  function increaseQuantity() {
+  function increaseQuantity(productId) {
     let currentValue = parseInt($quantityInput.val());
     $quantityInput.val(currentValue + 1);
+  
+    var storage = sessionStorage.getItem("cart");
+    var cart = JSON.parse(storage);
+    var product = cart.find(product => product.productId === productId);
+  
+    if (product) {
+      product.quantity++;
+      sessionStorage.setItem("cart", JSON.stringify(cart));
+    }
+  
     updateTotalSum();
   }
 
-  function removeCartItem() {
+  function removeCartItem(productId) {
+    var storage = sessionStorage.getItem("cart");
+    var cart = JSON.parse(storage);
+    var productIndex = cart.findIndex(product => product.productId === productId);
+  
+    if (productIndex > -1) {
+      cart.splice(productIndex, 1);
+      sessionStorage.setItem("cart", JSON.stringify(cart));
+    }
+  
     $cartItem.remove();
     updateTotalSum();
   }
