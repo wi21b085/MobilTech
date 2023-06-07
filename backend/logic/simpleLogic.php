@@ -30,6 +30,12 @@ class SimpleLogic
             case "addToCart":
                 $result = $this->dh->addToCart($param);
                 break;
+            case "indexCategory":
+                $result = $this->dh->indexCategory();
+                break;
+            case "viewAccount":
+                $result = $this->dh->viewAccount($param);
+                break;
             default:
                 $result = null;
                 break;

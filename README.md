@@ -6,7 +6,7 @@ Datenbank mobiltechdb anlegen.
 
 Adminkonto:
 Username: admin
-Passwort: admin
+Passwort: 1
 E-Mail: admin@admin.at
 
 Userkonto:
