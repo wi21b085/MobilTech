@@ -39,6 +39,12 @@ class SimpleLogic
             case "search":
                 $result = $this->dh->search($param);
                 break;
+            case "indexCategory":
+                $result = $this->dh->indexCategory();
+                break;
+            case "viewAccount":
+                $result = $this->dh->viewAccount($param);
+                break;
             default:
                 $result = null;
                 break;

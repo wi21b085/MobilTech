@@ -72,5 +72,18 @@ class DataHandler
         require_once("../logic/shoppingCart_logic.php");
         return $response;
     }
+    public function indexCategory(){
+        require_once("../logic/index_category.php");
+        return $product_list;
+        
+    }
+    public function viewAccount($param){
+    
+        $tab = [];
+        require_once("../logic/view_account.php");
+        return $tab;
+
+    }
+
 
 }
