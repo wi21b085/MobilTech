@@ -66,7 +66,8 @@ class DataHandler
         include("../logic/addProduct_logic.php");
         return $response;
     }
-    public function addToCart($param){  
+    public function addToCart($param){
+        $data = json_decode($param);
         $response = [];
         require_once("../logic/shoppingCart_logic.php");
         return $response;
