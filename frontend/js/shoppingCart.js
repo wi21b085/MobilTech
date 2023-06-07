@@ -27,7 +27,6 @@ function addToCart(productId, quantity) {
           console.log(existingProduct);
           existingProduct.quantity += quantity;
         } else {
-
           cart.push(response);
         }
 
@@ -49,7 +48,7 @@ function addToCart(productId, quantity) {
 }
 
 $(document).ready(function () {
-  var storage = sessionStorage.getItem("cart"); // id:1
+  var storage = sessionStorage.getItem("cart");
   for (let item of JSON.parse(storage)) {
     formatCartData(item);
   }
@@ -129,15 +128,15 @@ function formatCartData(response) {
       cart[productIndex].quantity--;
 
       if (currentValue === 1) {
-        cart.splice(productIndex, 1); // Remove the item from the cart array
-        sessionStorage.setItem("cart", JSON.stringify(cart)); // Update the session storage
+        cart.splice(productIndex, 1); 
+        sessionStorage.setItem("cart", JSON.stringify(cart)); 
 
         $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
           $cartItem.remove();
           updateTotalSum();
         });
       } else {
-        sessionStorage.setItem("cart", JSON.stringify(cart)); // Update the session storage
+        sessionStorage.setItem("cart", JSON.stringify(cart)); 
         updateTotalSum();
       }
     }
@@ -202,7 +201,7 @@ function updateTotalSum() {
     let $totalSumElement = $('<div>', {
       id: 'total-sum',
       text: 'Total Sum: ' + totalSum.toFixed(2) + ' €',
-      class: 'alert alert-info', 
+      class: 'alert alert-info',
     });
     $('.offcanvas-body').append($totalSumElement);
 
@@ -211,6 +210,9 @@ function updateTotalSum() {
       id: 'kaufen-button',
       class: 'btn btn-primary',
       text: 'Kassa'
+    }).click(function(){
+      window.location.replace("kassa.html");
+
     });
 
     $('.offcanvas-body').append($kaufenButton);
