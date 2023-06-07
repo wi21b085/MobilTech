@@ -48,14 +48,25 @@ class DataHandler
         include("../logic/viewProducts_logic.php");
         return $product_list;
     }
+    public function viewCustomers(){
+        include("../logic/viewCustomers_logic.php");
+        return $customer_list;
+    }
+    public function kassa($param){
+        $customer = [];
+        include("../logic/kassa_logic.php");
+        return $customer;
+    }
+    public function search($param){
+        include("../logic/search_logic.php");
+        return $searched_product_list;
+    }
     public function addProduct($param){
         $response = [];
         include("../logic/addProduct_logic.php");
         return $response;
     }
-    public function addToCart($param){
-        $data = json_decode($param);
-
+    public function addToCart($param){  
         $response = [];
         require_once("../logic/shoppingCart_logic.php");
         return $response;
