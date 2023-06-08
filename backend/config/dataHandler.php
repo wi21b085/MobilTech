@@ -40,8 +40,10 @@ class DataHandler
         return $res;
     }
 
-    public function logout()
-    {;
+    public function logout(){
+        $res = [];
+        include("../logic/logout.php");
+        return $res;
     }
     public function viewProduct(){
 
