@@ -46,7 +46,7 @@ $(document).ready(function () {
                 console.log(response.success)
                 console.log(checked)
                 if(response.success){
-                    window.location = ""
+                    window.location = "index.html"
                 }
             },
             error: function (error) {
