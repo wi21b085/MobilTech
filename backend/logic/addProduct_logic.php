@@ -54,8 +54,6 @@ if (empty($name) || empty($preis) || empty($kurzbeschreibung) || empty($text) ||
     $response = array("success" => true);
 }
 
-return $response;
-?>
 
 
 

@@ -68,6 +68,11 @@ class DataHandler
         include("../logic/addProduct_logic.php");
         return $response;
     }
+    public function updateProduct($param){
+        $response = [];
+        include("../logic/updateProduct.php");
+        return $response;
+    }
     public function addToCart($param){
         $data = json_decode($param);
         $response = [];
@@ -86,6 +91,20 @@ class DataHandler
         return $tab;
 
     }
+    public function statusUpdate($param){
+        $res = [];
 
+        $data = json_decode($param);
+        $uid = $data->id;
+        $status = $data->status;
+        include("../logic/statusUpdate.php");
+        return $res;
+    }
+    public function checkAdmin(){
+        $res = [];
+        $res["admin"] = false;
+        include("../logic/checkAdmin.php");
+        return $res;
+    }
 
 }

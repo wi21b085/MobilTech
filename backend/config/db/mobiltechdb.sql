@@ -84,7 +84,7 @@ CREATE TABLE `user` (
 --
 -- --------------------------------------------------------
 INSERT INTO `user` (`id`, `anrede`, `vorname`, `nachname`, `username`, `email`, `password`, `adresse`, `plz`, `ort`, `zahlung`, `status`, `admin`) VALUES
-(1, 'keine Angabe', 'Admin', 'Admin', 'admin', 'admin@admin.at', '$2y$10$PJ2c1Q6hn6Vm2wTILPZeguuZbz0Xf.cRROIPMAzmJtVI4VntlPIvG', 'Adminstraße 6', 1234, 'Wien', NULL, 1, 0),
+(1, 'keine Angabe', 'Admin', 'Admin', 'admin', 'admin@admin.at', '$2y$10$PJ2c1Q6hn6Vm2wTILPZeguuZbz0Xf.cRROIPMAzmJtVI4VntlPIvG', 'Adminstraße 6', 1234, 'Wien', NULL, 1, 1),
 (2, 'keine Angabe', 'Test', 'User', 'user', 'user@mail.com', '$2y$10$.VCIiip3DEAXnmAhqK4/hOib1kAZrrbGMoPlJcxKdsrPs4grmtPtu', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
 (3, 'Herr', 'Kevin', 'Xhunga', 'wi21b025', 'wi21b025@technikum-wien.at', '$2y$10$VdLBGSWoi9cfHFv5HBBodO/N7wn/oL7MjfrzY0mlJ42U64tK8FDli', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
 (4, 'keine Angabe', 'Nahid', 'Nourani', 'wi21b089', 'wi21b089@technikum-wien.at', '$2y$10$vx2u.jt2Hwb3hevnLu4E1uU8I4HlI8MxuXL6602GSFpLVnqDcgVaW', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),

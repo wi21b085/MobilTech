@@ -24,6 +24,9 @@ class SimpleLogic
             case "addProduct":
                 $result = $this->dh->addProduct($param);
                 break;
+            case "updateProduct":
+                $result = $this->dh->updateProduct($param);
+                break;
             case "addToCart":
                 $result = $this->dh->addToCart($param);
                 break;
@@ -44,6 +47,12 @@ class SimpleLogic
                 break;
             case "viewAccount":
                 $result = $this->dh->viewAccount($param);
+                break;
+            case "statusUpdate":
+                $result = $this->dh->statusUpdate($param);
+                break;
+            case "checkAdmin":
+                $result = $this->dh->checkAdmin();
                 break;
             default:
                 $result = null;
