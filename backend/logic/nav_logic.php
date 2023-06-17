@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION['rolle'])) {
+if (isset($_SESSION['rolle']) && isset($_COOKIE["username"])) {
 
     if ($_SESSION['rolle'] == 'admin') {
         require_once('../../frontend/sites/navbar-admin.html');

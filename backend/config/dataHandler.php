@@ -73,6 +73,12 @@ class DataHandler
         include("../logic/updateProduct.php");
         return $response;
     }
+    public function deleteProduct($param){
+        $data = json_decode($param);
+        $response = [];
+        include("../logic/deleteProduct.php");
+        return $response;
+    }
     public function addToCart($param){
         $data = json_decode($param);
         $response = [];

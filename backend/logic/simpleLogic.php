@@ -27,6 +27,9 @@ class SimpleLogic
             case "updateProduct":
                 $result = $this->dh->updateProduct($param);
                 break;
+            case "deleteProduct":
+                $result = $this->dh->deleteProduct($param);
+                break;
             case "addToCart":
                 $result = $this->dh->addToCart($param);
                 break;
