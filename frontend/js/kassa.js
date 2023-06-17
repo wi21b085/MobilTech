@@ -9,10 +9,11 @@ $(document).ready(function () {
       method: "kassa"
     },
     success: function (response) {
-      if (response.id != 0) {
+      if (response.id !== "false") {
         kassa(response);
+        console.log(response)
       } else {
-        window.location = "viewProducts.html"
+        window.location = "login.html"
         console.log(response)
       }
     },
@@ -24,18 +25,21 @@ $(document).ready(function () {
   $.ajax(config);
 
   function kassa(response) {
-    $('#vorname').html('Vorname: ' + response.vorname);
-    $('#nachname').html('Nachname: ' + response.nachname);
-    $('#email').html('Email: ' + response.email);
-    $('#adresse').html('Adresse: ' + response.adresse);
-    $('#plz').html('PLZ: ' + response.plz);
-    $('#ort').html('Stadt: ' + response.ort);
 
     var stored = sessionStorage.getItem('cart');
     var cartData = JSON.parse(stored);
 
     if (cartData) {
+
+      $('#vorname').html('Vorname: ' + response.vorname);
+      $('#nachname').html('Nachname: ' + response.nachname);
+      $('#email').html('Email: ' + response.email);
+      $('#adresse').html('Adresse: ' + response.adresse);
+      $('#plz').html('PLZ: ' + response.plz);
+      $('#ort').html('Stadt: ' + response.ort);
+
       var invoiceContainer = $('<div>').addClass('container mt-4');
+      
       var currentDate = new Date();
       var day = currentDate.getDate();
       var month = currentDate.getMonth() + 1;
@@ -156,6 +160,8 @@ $(document).ready(function () {
       invoiceContainer.append($('<div>').addClass('text-end').append(bestellenButton));
 
       $('#kassa').empty().append(invoiceContainer);
+    } else {
+      window.location="viewProducts.html";
     }
   }
 });
