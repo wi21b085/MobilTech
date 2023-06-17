@@ -13,7 +13,11 @@ if ($request == "GET") {
 } else if ($request == "POST") {
     isset($_POST["method"]) ? $method = $_POST["method"] : false;
     isset($_POST["param"]) ? $param = $_POST["param"] : false;
-    
+
+    if ($method == "updateProduct") {
+        $param = $_POST;
+    }
+
     isset($_FILES["bild"]) ? $param = $_POST : false;
     isset($_FILES["bild"]) ? $param["bild"] = $_FILES["bild"] : false;
     //isset($_FILES["bild"]) ? $param = $_FILES["bild"] : false; // Check if $_FILES is set and assign it to $files

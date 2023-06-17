@@ -7,20 +7,31 @@ $preis = isset($data["preis"]) ? htmlspecialchars($data["preis"]) : '';
 $firma = isset($data["firma"]) ? htmlspecialchars($data["firma"]) : '';
 $text = isset($data["text"]) ? htmlspecialchars($data["text"]) : '';
 $kurzbeschreibung = isset($data["kurzbeschreibung"]) ? htmlspecialchars($data["kurzbeschreibung"]) : '';
+$id = isset($data["id"]) ? htmlspecialchars($data["id"]) : '';
 
-//var_dump($name, $preis, $firma, $text, $kurzbeschreibung, $bild); // Debugging statement
+//var_dump($data); // Debugging statement
 
-if (empty($name) || empty($preis) || empty($kurzbeschreibung) || empty($text) || empty($firma)) {
+if (empty($name) || empty($preis) || empty($kurzbeschreibung) || empty($text) || empty($firma) || $id == "NaN") {
     $response = array("failed" => false);
 } else {
-    require_once("fileUpload_logic.php");
     include_once("../config/dbaccess.php");
 
-    $stmt = $db->prepare("UPDATE produkte(`name`, firma, preis, text, kurzbeschreibung, bild) VALUES (?, ?, ?, ?, ?, ?) WHERE `id` = ?");
-    $stmt->bind_param("ssdsssi", $name, $firma, $preis, $text, $kurzbeschreibung, $bild_new, $id);
-    $stmt->execute();
-    $stmt->close();
-    $db->close();
-
-    $response = array("success" => true);
+    if (isset($_FILES['bild'])) {
+        require_once("fileUpload_logic.php");
+        $sql = "UPDATE produkte SET `name` = ?, `firma` = ?, `preis` = ?, `text` = ?, `kurzbeschreibung` = ?, `bild` = ? WHERE `id` = ?";
+        $stmt = mysqli_prepare($db, $sql);
+        mysqli_stmt_bind_param($stmt, "ssdsssi", $name, $firma, $preis, $text, $kurzbeschreibung, $bild_new, $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($db);
+        $response = array("success" => true);
+    } else {
+        $sql = "UPDATE produkte SET `name` = ?, `firma` = ?, `preis` = ?, `text` = ?, `kurzbeschreibung` = ? WHERE `id` = ?";
+        $stmt = mysqli_prepare($db, $sql);
+        mysqli_stmt_bind_param($stmt, "ssdssi", $name, $firma, $preis, $text, $kurzbeschreibung, $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($db);
+        $response = array("success" => true);
+    }
 }

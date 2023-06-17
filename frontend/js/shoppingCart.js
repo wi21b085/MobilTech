@@ -49,8 +49,10 @@ function addToCart(productId, quantity) {
 
 $(document).ready(function () {
   var storage = sessionStorage.getItem("cart");
-  for (let item of JSON.parse(storage)) {
-    formatCartData(item);
+  if (JSON.parse(storage) != null) {
+    for (let item of JSON.parse(storage)) {
+      formatCartData(item);
+    }
   }
 })
 function formatCartData(response) {
@@ -128,15 +130,15 @@ function formatCartData(response) {
       cart[productIndex].quantity--;
 
       if (currentValue === 1) {
-        cart.splice(productIndex, 1); 
-        sessionStorage.setItem("cart", JSON.stringify(cart)); 
+        cart.splice(productIndex, 1);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
 
         $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
           $cartItem.remove();
           updateTotalSum();
         });
       } else {
-        sessionStorage.setItem("cart", JSON.stringify(cart)); 
+        sessionStorage.setItem("cart", JSON.stringify(cart));
         updateTotalSum();
       }
     }

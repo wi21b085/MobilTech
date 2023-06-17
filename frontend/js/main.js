@@ -27,6 +27,7 @@ function logout() {
         success: function (response) {
             console.log(response.success)
             if (response.success) {
+                sessionStorage.clear();
                 window.location = "index.html"
             }
         },
