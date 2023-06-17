@@ -1,137 +1,68 @@
-$(document).ready(function() {
-  $("#search").on("submit", function(event) {
-    event.preventDefault();
+var typingTimer;
+var doneTypingInterval = 500; // Delay in milliseconds after user stops typing
 
-    var searchItem = $("#item").val().trim();
+function performSearch() {
+  clearTimeout(typingTimer); // Clear the previous timer
 
-    if (searchItem === "") {
-      $(".error").text("Please enter a search item.").show();
-      return;
-    }
+  var searchItem = document.getElementById("searchInput").value.trim();
 
-    $(".error").hide();
+  if (searchItem !== "") {
+    typingTimer = setTimeout(function() {
+      $.ajax({
+        type: "POST",
+        data: {
+          method: "search",
+          param: JSON.stringify({
+            item: searchItem
+          })
+        },
+        url: "../../backend/logic/requestHandler.php",
+        dataType: "json",
+        success: function(response) {
+          console.log(response);
+          $(".product-placeholder").empty(); // Clear previous search results
 
-    performSearch(searchItem);
-  });
-
-  function performSearch(searchItem) {
-    $.ajax({
-      type: "POST",
-      data: {
-        method: "search",
-        param: JSON.stringify({
-          item: searchItem
-        })
-      },
-      url: "../../backend/logic/requestHandler.php",
-      dataType: "json",
-      success: function(response) {
-        console.log(response);
-        if (response.success) {
-          var products = response.searched_product_list;
-          $(".product-placeholder").empty();
-          if (products.length > 0) {
-            for (var i = 0; i < products.length; i++) {
-              ladeProduct(products[i]);
+          if (response && Array.isArray(response)) {
+            for (var i = 0; i < response.length; i++) {
+              var product = response[i];
+              sucheProduct(product);
             }
           } else {
             $(".product-placeholder").html("<p>No results found.</p>");
           }
-        } else {
-          $(".product-placeholder").html("<p>No results found.</p>");
+        },
+        error: function() {
+          $('.error').append('<center><div class="alert alert-danger" role="alert" style="width:50%;">The data could not be loaded! :(</div></center>');
         }
-      },
-      error: function(xhr, status, error) {
-        console.log(xhr);
-        console.log(status);
-        console.log(error);
-        $(".product-placeholder").html("<p>Error occurred while performing the search.</p>");
-      }
-    });
+      });
+    }, doneTypingInterval);
+  } else {
+    $(".product-placeholder").empty(); // Clear the search results if the search input is empty
   }
+}
 
-  function ladeProduct(product) {
-    var $productCard = $('<div>', {
-      class: 'card',
-      css: {
-        'width': '18rem',
-        'height': 'auto',
-        'margin-right': '20px',
-        'margin-top': '25px'
-      }
-    });
+function sucheProduct(product) {
+  var productHTML = `
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${product.bild}" class="img-fluid rounded-start" alt="Product Image">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${product.name}</h5>
+            <p class="card-text">Price: ${product.preis}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 
-    var $cardImg = $('<img>', {
-      class: 'card-img-top',
-      src: product.bild,
-      css: {
-        'width': '12rem',
-        'height': 'auto',
-        'object-fit': 'contain',
-        'height': '200px',
-        'width': '100%',
-        'display': 'block',
-        'margin': '0 auto'
-      }
-    });
+  $(".product-placeholder").append(productHTML);
+}
 
-    var $cardBody = $('<div>', {
-      class: 'card-body'
-    });
-
-    var $cardTitle = $('<h5>', {
-      class: 'card-title',
-      text: product.name
-    });
-
-    var $cardText = $('<p>', {
-      class: 'card-text',
-      text: product.kurzbeschreibung,
-    });
-
-    var $cardPreis = $('<p>', {
-      class: 'card-text',
-      text: product.preis + "€",
-    });
-
-    var cardStarts = $('<p>', {
-      class: 'card-text',
-      css: {
-        color: 'gold',
-        'font-size': '20px',
-      },
-      text: getRatingStars(product.bewertung)
-    });
-
-    var $cardLink = $('<a>', {
-      class: 'btn btn-primary',
-      text: 'Kauf',
-      click: function() {
-        addToCart(product.id, 1, product.preis, product.name, product.bild);
-      }
-    });
-
-    $productCard.append($cardImg, $cardBody);
-    $cardBody.append($cardTitle, $cardText, $cardPreis, cardStarts, $cardLink);
-    $('.product-placeholder').append($productCard);
-  }
-
-  function getRatingStars(rating) {
-    switch (rating) {
-      case 0:
-        return "☆☆☆☆☆";
-      case 1:
-        return "★☆☆☆☆";
-      case 2:
-        return "★★☆☆☆";
-      case 3:
-        return "★★★☆☆";
-      case 4:
-        return "★★★★☆";
-      case 5:
-        return "★★★★★";
-      default:
-        return "";
-    }
-  }
+$(document).ready(function() {
+  $('#search').on('input', function() {
+    performSearch();
+  });
 });
