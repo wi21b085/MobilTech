@@ -1,9 +1,12 @@
 <?php
 include_once("../config/dbaccess.php");
+session_start();
+
+$username = $_SESSION["username"];
 
 $sql = "SELECT * FROM user WHERE username = ?";
 $stmt = $db->prepare($sql);
-$stmt->bind_param("s", $param); 
+$stmt->bind_param("s", $username); 
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -18,8 +21,9 @@ if ($row = $result->fetch_assoc()) {
         'adresse' => $row['adresse'],
         'plz' => $row['plz'],
         'ort' => $row['ort'],
-        'zahlung' => $row['zahlung']
     );
+} else {
+ $customer["id"] = 0;
 }
 
 $stmt->close();

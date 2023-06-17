@@ -169,4 +169,3 @@ let config = {
 };
 
 $.ajax(config);
-

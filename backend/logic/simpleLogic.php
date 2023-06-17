@@ -34,7 +34,7 @@ class SimpleLogic
                 $result = $this->dh->viewCustomers();
                 break;
             case "kassa":
-                $result = $this->dh->kassa($param);
+                $result = $this->dh->kassa();
                 break;
             case "search":
                 $result = $this->dh->search($param);
@@ -44,6 +44,9 @@ class SimpleLogic
                 break;
             case "viewAccount":
                 $result = $this->dh->viewAccount($param);
+                break;
+            case "bestellen":
+                $result = $this->dh->bestellen($param);
                 break;
             default:
                 $result = null;
