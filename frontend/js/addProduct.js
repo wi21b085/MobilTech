@@ -166,7 +166,7 @@ $('#updateSelection').change(function () {
             $.ajax({
                 type: "POST",
                 data: {
-                    method: deleteProduct,
+                    method: "deleteProduct",
                     param: JSON.stringify({
                         id: parseInt($("#updateSelection").val())
                     })
