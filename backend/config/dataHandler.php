@@ -40,8 +40,10 @@ class DataHandler
         return $res;
     }
 
-    public function logout()
-    {;
+    public function logout(){
+        $res = [];
+        include("../logic/logout.php");
+        return $res;
     }
     public function viewProduct(){
 
@@ -71,6 +73,17 @@ class DataHandler
         include("../logic/addProduct_logic.php");
         return $response;
     }
+    public function updateProduct($param){
+        $response = [];
+        include("../logic/updateProduct.php");
+        return $response;
+    }
+    public function deleteProduct($param){
+        $data = json_decode($param);
+        $response = [];
+        include("../logic/deleteProduct.php");
+        return $response;
+    }
     public function addToCart($param){
         $data = json_decode($param);
         $response = [];
@@ -83,6 +96,30 @@ class DataHandler
         
     }
     public function viewAccount($param){
+        $customer = [];
+        include("../logic/view_account.php");
+        return $customer;
+
+    }
+    public function statusUpdate($param){
+        $res = [];
+
+        $data = json_decode($param);
+        $uid = $data->id;
+        $status = $data->status;
+        include("../logic/statusUpdate.php");
+        return $res;
+    }
+    public function checkAdmin(){
+        $res = [];
+        $res["admin"] = false;
+        include("../logic/checkAdmin.php");
+        return $res;
+    }
+    public function editAccount($param){
+        $response = [];
+        include("../logic/edit_account.php");
+        return $response;
         $tab = [];
         require_once("../logic/view_account.php");
         return $tab;
@@ -93,6 +130,5 @@ class DataHandler
         require_once("../logic/bestellung_logic.php");
         return $response;
     }
-
 
 }
