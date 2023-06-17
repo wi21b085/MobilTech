@@ -91,10 +91,9 @@ class DataHandler
         
     }
     public function viewAccount($param){
-    
-        $tab = [];
-        require_once("../logic/view_account.php");
-        return $tab;
+        $customer = [];
+        include("../logic/view_account.php");
+        return $customer;
 
     }
     public function statusUpdate($param){
@@ -111,6 +110,11 @@ class DataHandler
         $res["admin"] = false;
         include("../logic/checkAdmin.php");
         return $res;
+    }
+    public function editAccount($param){
+        $response = [];
+        include("../logic/edit_account.php");
+        return $response;
     }
 
 }
