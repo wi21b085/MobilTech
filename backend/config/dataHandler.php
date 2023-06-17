@@ -54,12 +54,17 @@ class DataHandler
         include("../logic/viewCustomers_logic.php");
         return $customer_list;
     }
-    public function kassa($param){
+    public function viewVerlauf(){
+        include("../logic/viewVerlauf_logic.php");
+        return $verlauf_list;
+    }
+    public function kassa(){
         $customer = [];
         include("../logic/kassa_logic.php");
         return $customer;
     }
     public function search($param){
+        $searchData = json_decode($param);
         include("../logic/search_logic.php");
         return $searched_product_list;
     }
@@ -114,6 +119,15 @@ class DataHandler
     public function editAccount($param){
         $response = [];
         include("../logic/edit_account.php");
+        return $response;
+        $tab = [];
+        require_once("../logic/view_account.php");
+        return $tab;
+    }
+    public function bestellen($param){
+        session_start();
+        $response = [];
+        require_once("../logic/bestellung_logic.php");
         return $response;
     }
 
