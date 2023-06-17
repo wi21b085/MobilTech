@@ -9,7 +9,7 @@ $stmt = $db->prepare($sql);
 $stmt->bind_param("i", $id);
 if($stmt->execute()){
     $response["success"] = true;
-    var_dump($data);
+    //var_dump($data);
 }
 
 $stmt->close();
