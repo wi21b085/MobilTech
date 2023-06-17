@@ -1,43 +1,36 @@
 <?php
-/*$stmt = $pdo->prepare("UPDATE your_table SET status = :status, geburtsdatum = :geburtsdatum, email = :email, add = :add");
-  $stmt->execute([
-    ':status' => $status,
-    ':geburtsdatum' => $geburtsdatum,
-    ':email' => $email,
-    ':add' => $add
-  ]);
+if(isset($param)){
+$data = $param;
 
-  
-  if ($stmt->rowCount() > 0) {
-    echo "Data has been updated successfully!";
-  } else {
-    echo "Failed to update data.";
-  }*/
-  $data = $param;
+$anrede = isset($data["anrede"]) ? htmlspecialchars($data["anrede"]) : '';
+$vorname = isset($data["vorname"]) ? htmlspecialchars($data["vorname"]) : '';
+$nachname = isset($data["nachname"]) ? htmlspecialchars($data["nachname"]) : '';
+$email = isset($data["email"]) ? htmlspecialchars($data["email"]) : '';
+$add = isset($data["add"]) ? htmlspecialchars($data["add"]) : '';
+$plz = isset($data["plz"]) ? htmlspecialchars($data["plz"]) : '';
+$ort = isset($data["ort"]) ? htmlspecialchars($data["ort"]) : '';
 
-$status = isset($data["status"]) ? htmlspecialchars($data["name"]) : '';
-$preis = isset($data["preis"]) ? htmlspecialchars($data["preis"]) : '';
-$firma = isset($data["firma"]) ? htmlspecialchars($data["firma"]) : '';
-$text = isset($data["text"]) ? htmlspecialchars($data["text"]) : '';
-$kurzbeschreibung = isset($data["kurzbeschreibung"]) ? htmlspecialchars($data["kurzbeschreibung"]) : '';
+var_dump($data); // Display the received data
+}else{
+    echo "No data recieved!";
+}
+//var_dump($anrede, $vorname, $nachname, $email, $add, $plz, $ort); // Debugging statement
 
-//var_dump($name, $preis, $firma, $text, $kurzbeschreibung, $bild); // Debugging statement
-
-if (empty($name) || empty($preis) || empty($kurzbeschreibung) || empty($text) || empty($firma)) {
+if (empty($anrede) || empty($varname) || empty($nachname) || empty($email) || empty($add) || empty($plz) || empty($ort)) {
     $response = array("failed" => false);
 } else {
-    require_once("fileUpload_logic.php");
     include_once("../config/dbaccess.php");
 
-    $sql = "INSERT INTO produkte (`name`, firma, preis, text, kurzbeschreibung, bild) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "UPDATE produkte SET `anrede` = ?, `vorname` = ?, `nachname` = ?, `email` = ?, `adresse` = ?, `plz` = ?, `ort` = ? WHERE `username` = ?";
     $stmt = mysqli_prepare($db, $sql);
-    mysqli_stmt_bind_param($stmt, "ssdsss", $name, $firma, $preis, $text, $kurzbeschreibung, $bild_new);
+    mysqli_stmt_bind_param($stmt, "sssssis", $anrede, $vorname, $nachname, $email, $add, $plz, $ort);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     mysqli_close($db);
-
     $response = array("success" => true);
 }
+
+var_dump($response); // Display the response
 
 return $response;
 ?>

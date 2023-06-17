@@ -2,7 +2,7 @@
 include_once("../models/firmaProductClass.php");
 include_once("../config/dbaccess.php");
 
-    $sql = "SELECT DISTINCT firma, name, bild, kurzbeschreibung FROM produkte";
+    $sql = "SELECT firma, name ,bild , kurzbeschreibung FROM produkte GROUP BY firma";
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -17,3 +17,5 @@ include_once("../config/dbaccess.php");
     $stmt->close();
 
 ?>
+
+
