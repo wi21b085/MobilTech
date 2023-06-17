@@ -54,6 +54,9 @@ class SimpleLogic
             case "checkAdmin":
                 $result = $this->dh->checkAdmin();
                 break;
+            case "editAccount":
+                $result = $this->dh->editAccount($param);
+                break;
             default:
                 $result = null;
                 break;
