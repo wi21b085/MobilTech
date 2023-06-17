@@ -35,16 +35,16 @@ $(document).ready(function () {
 
                     $(this).text('Submit');
                 } else if ($(this).text() === 'Submit') {
-                    var data = {
-                        
+                    var data = JSON.stringify({
+                        username: customer.username,
                         anrede: $('#anredeInput').val(),
                         vorname: $('#vornameInput').val(),
                         nachname: $('#nachnameInput').val(),
                         email: $('#emailInput').val(),
-                        add: $('#addInput').val(),
+                        adresse: $('#addInput').val(),
                         plz: $('#plzInput').val(),
                         ort: $('#ortInput').val()
-                    };
+                    });
 
                     $.ajax({
                         url: '../../backend/logic/requestHandler.php',
@@ -57,12 +57,14 @@ $(document).ready(function () {
                         success: function (response) {
                             console.log('Data submitted successfully:');
                             console.log(data);
+                            data = JSON.parse(data);
 
                             // Replace the input fields with the updated information
+                            $('#anredeInput').replaceWith('<span id="anrede">' + data.anrede + '</span>');
                             $('#vornameInput').replaceWith('<span id="vorname">' + data.vorname + '</span>');
                             $('#nachnameInput').replaceWith('<span id="nachname">' + data.nachname + '</span>');
                             $('#emailInput').replaceWith('<span id="email">' + data.email + '</span>');
-                            $('#addInput').replaceWith('<span id="add">' + data.add + '</span>');
+                            $('#addInput').replaceWith('<span id="add">' + data.adresse + '</span>');
                             $('#plzInput').replaceWith('<span id="plz">' + data.plz + '</span>');
                             $('#ortInput').replaceWith('<span id="ort">' + data.ort + '</span>');
 
