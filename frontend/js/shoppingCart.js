@@ -108,8 +108,6 @@ function formatCartData(response) {
     removeCartItem(response.productId);
   });
 
-
-
   $itemDetails.css('padding-left', '10px');
   $bildInput.css('max-width', '100%');
   $quantityWrapper.append($quantityMinus, $quantityInput, $quantityPlus);
@@ -144,7 +142,6 @@ function formatCartData(response) {
     }
   }
 
-
   function increaseQuantity(productId) {
     let currentValue = parseInt($quantityInput.val());
     $quantityInput.val(currentValue + 1);
@@ -178,16 +175,12 @@ function formatCartData(response) {
 
 updateTotalSum();
 
-
-
-
-
-
 function updateTotalSum() {
   let totalSum = 0;
 
   // console.log($(".offcanvas-body").find("div.cart-item"))
   if ($(".offcanvas-body").find("div.cart-item").length == 0) {
+    sessionStorage.clear();
     $(".offcanvas-body").empty()
     $('.offcanvas-body').append("<div class='form-text alert alert-info' style='text-align:center'>Warenkorb ist leer.</div>");
   } else {
