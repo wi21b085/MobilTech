@@ -9,11 +9,12 @@ function loadProduct(product) {
   let cardLink = $('<a>', {
     class: 'btn btn-primary',
     text: 'View Category',
-    click: function() {
-      // TODO: Add functionality for the button click
-    }
+    href: '../sites/viewProducts.html?categorie = ' + encodeURIComponent(product.firma)
   });
-
+  
+  
+  
+  
   cardBody.append(cardTitle, cardText, cardLink);
   card.append(cardImage, cardBody);
   col.append(card);
