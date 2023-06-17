@@ -1,13 +1,24 @@
-var typingTimer;
-var doneTypingInterval = 500; // Delay in milliseconds after user stops typing
+$(document).ready(function () {
+
+  $('#searchInput').on('input', function () {
+    performSearch();
+  });
+  
+});
+
 
 function performSearch() {
+
+  const main = $("main");
+  //const originalMainContent = main.html();
+  var typingTimer;
+  var doneTypingInterval = 500; // Delay in milliseconds after user stops typing
   clearTimeout(typingTimer); // Clear the previous timer
 
-  var searchItem = document.getElementById("searchInput").value.trim();
+  var searchItem = $("#searchInput").val().trim();
 
   if (searchItem !== "") {
-    typingTimer = setTimeout(function() {
+    typingTimer = setTimeout(function () {
       $.ajax({
         type: "POST",
         data: {
@@ -18,51 +29,51 @@ function performSearch() {
         },
         url: "../../backend/logic/requestHandler.php",
         dataType: "json",
-        success: function(response) {
+        success: function (response) {
           console.log(response);
-          $(".product-placeholder").empty(); // Clear previous search results
 
-          if (response && Array.isArray(response)) {
+          if (response && Array.isArray(response) && response.item !== "notFound") {
+
+            $("#searchMain").remove();
+            $("main").hide(); // Clear previous search results
+            $("#navbar").append('<main id="searchMain"></main>');
             for (var i = 0; i < response.length; i++) {
               var product = response[i];
-              sucheProduct(product);
+              searchProduct(product);
             }
           } else {
-            $(".product-placeholder").html("<p>No results found.</p>");
+            $("#searchMain").remove();
+            $("main").show();
           }
         },
-        error: function() {
-          $('.error').append('<center><div class="alert alert-danger" role="alert" style="width:50%;">The data could not be loaded! :(</div></center>');
+        error: function () {
+          $('.error').html('<center><div class="alert alert-danger" role="alert" style="width:50%;">The data could not be loaded! :(</div></center>');
         }
       });
     }, doneTypingInterval);
   } else {
-    $(".product-placeholder").empty(); // Clear the search results if the search input is empty
+    $("#searchMain").remove();
+
+    $("main").show(); // Restore the original content of main
   }
 }
 
-function sucheProduct(product) {
+function searchProduct(product) {
   var productHTML = `
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="${product.bild}" class="img-fluid rounded-start" alt="Product Image">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">${product.name}</h5>
-            <p class="card-text">Price: ${product.preis}</p>
-          </div>
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="${product.bild}" class="img-fluid rounded-start" alt="Product Image">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">${product.name}</h5>
+          <p class="card-text">Price: ${product.preis}</p>
         </div>
       </div>
     </div>
+  </div>
   `;
 
-  $(".product-placeholder").append(productHTML);
+  $("#searchMain").append(productHTML);
 }
-
-$(document).ready(function() {
-  $('#search').on('input', function() {
-    performSearch();
-  });
-});

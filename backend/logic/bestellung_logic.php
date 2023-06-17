@@ -4,9 +4,9 @@ include_once("../config/dbaccess.php");
 
 $endpreis = array_sum($param['produktenGesamtPreis']);
 $u_id = $_SESSION['id'];
-$sql = "INSERT INTO orders (o_datum, endpreis, u_id) VALUES (CURRENT_TIMESTAMP(), ?, ?)";
+$sql = "INSERT INTO orders (u_id) VALUES (?)";
 $stmt = $db->prepare($sql);
-$stmt->bind_param("dd", $endpreis, $u_id);
+$stmt->bind_param("d", $u_id);
 $stmt->execute();
 
 if ($stmt->affected_rows > 0) {

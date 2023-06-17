@@ -3,13 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 07:14 PM
+-- Generation Time: Jun 17, 2023 at 08:55 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,6 +36,17 @@ CREATE TABLE `orders` (
   `anzahl` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `o_datum`, `endpreis`, `u_id`, `anzahl`) VALUES
+(95, '2023-06-17', 7500, 3, 3),
+(96, '2023-06-17', 5600, 3, 3),
+(97, '2023-06-17', 3800, 3, 2),
+(98, '2023-06-17', 3700, 3, 3),
+(99, '2023-06-17', 6400, 3, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +68,17 @@ CREATE TABLE `produkte` (
 --
 -- Dumping data for table `produkte`
 --
+
+INSERT INTO `produkte` (`id`, `firma`, `name`, `bild`, `preis`, `kurzbeschreibung`, `text`, `bewertung`) VALUES
+(1, 'Apple', 'iPhone X', '../../backend/products/iphone.jpg', '800.00', '.........', '................', 1),
+(2, 'Samsung', 'Galaxy S9', '../../backend/products/s9.jpg', '1100.00', '.....', '..........', 2),
+(3, 'Apple', 'Iphone 12', '../../backend/products/iphone.jpg', '1800.00', '.........', '................', 0),
+(4, 'Samsung', 'Galaxy S20', '../../backend/products/s9.jpg', '1500.00', '.....', '..........', 3),
+(5, 'Apple', 'iPhone 13', '../../backend/products/iphone.jpg', '800.00', '.........', '................', 0),
+(6, 'Samsung', 'Galaxy S21', '../../backend/products/s9.jpg', '1100.00', '.....', '..........', 5),
+(7, 'Apple', 'iPhone 14 Pro', '../../backend/products/iphone.jpg', '1800.00', '.........', '................', 4),
+(8, 'Samsung', 'Galaxy S22 Ultra', '../../backend/products/s9.jpg', '1500.00', '.....', '..........', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -82,13 +105,15 @@ CREATE TABLE `user` (
 --
 -- Dumping data for table `user`
 --
--- --------------------------------------------------------
+
 INSERT INTO `user` (`id`, `anrede`, `vorname`, `nachname`, `username`, `email`, `password`, `adresse`, `plz`, `ort`, `zahlung`, `status`, `admin`) VALUES
-(1, 'keine Angabe', 'Admin', 'Admin', 'admin', 'admin@admin.at', '$2y$10$PJ2c1Q6hn6Vm2wTILPZeguuZbz0Xf.cRROIPMAzmJtVI4VntlPIvG', 'Adminstraße 6', 1234, 'Wien', NULL, 1, 1),
-(2, 'keine Angabe', 'Test', 'User', 'user', 'user@mail.com', '$2y$10$.VCIiip3DEAXnmAhqK4/hOib1kAZrrbGMoPlJcxKdsrPs4grmtPtu', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
-(3, 'Herr', 'Kevin', 'Xhunga', 'wi21b025', 'wi21b025@technikum-wien.at', '$2y$10$VdLBGSWoi9cfHFv5HBBodO/N7wn/oL7MjfrzY0mlJ42U64tK8FDli', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
-(4, 'keine Angabe', 'Nahid', 'Nourani', 'wi21b089', 'wi21b089@technikum-wien.at', '$2y$10$vx2u.jt2Hwb3hevnLu4E1uU8I4HlI8MxuXL6602GSFpLVnqDcgVaW', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0),
-(5, 'keine Angabe', 'Hadi', 'Heydari', 'wi21b085', 'wi21b085@technikum-wien.at', '$2y$10$7.MsEeMM8UMTvXfX8IBhUuElyzpcRaAytjhnz7gQjtGkH9HddzIm6', 'Heimstraße 12', 1234, 'Wien', NULL, 1, 0);
+(1, 'keine Angabe', 'Admin', 'Admin', 'admin', 'admin@admin.at', '$2y$10$PJ2c1Q6hn6Vm2wTILPZeguuZbz0Xf.cRROIPMAzmJtVI4VntlPIvG', 'Adminstraße 6', 1234, 'Wien', 'AT00 1200 0000 0000 0000', 1, 1),
+(2, 'Herr', 'Kevin', 'Xhunga', 'wi21b025', 'wi21b025@technikum-wien.at', '$2y$10$PJ2c1Q6hn6Vm2wTILPZeguuZbz0Xf.cRROIPMAzmJtVI4VntlPIvG', 'Musteradresse', 1100, 'Wien', 'AT00 1200 0000 0000 0000', 1, 1),
+(3, 'keine Angabe', 'Test', 'User', 'user', 'user@mail.com', '$2y$10$.VCIiip3DEAXnmAhqK4/hOib1kAZrrbGMoPlJcxKdsrPs4grmtPtu', 'Heimstraße 12', 1234, 'Wien', 'AT00 1200 0000 0000 0000', 1, 0),
+(4, 'Frau', 'Nahid', 'Nourani', 'wi21b089', 'wi21b089@technikum-wien.at', '$2y$10$vx2u.jt2Hwb3hevnLu4E1uU8I4HlI8MxuXL6602GSFpLVnqDcgVaW', 'Heimstraße 12', 1234, 'Wien', 'AT00 1200 0000 0000 0000', 1, 0),
+(5, 'Herr', 'Hadi', 'Heydari', 'wi21b085', 'wi21b085@technikum-wien.at', '$2y$10$7.MsEeMM8UMTvXfX8IBhUuElyzpcRaAytjhnz7gQjtGkH9HddzIm6', 'Heimstraße 12', 1234, 'Wien', 'AT00 1200 0000 0000 0000', 1, 0);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `verlauf`
@@ -104,26 +129,47 @@ CREATE TABLE `verlauf` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `verlauf`
+--
+
+INSERT INTO `verlauf` (`id`, `order_id`, `produkt_id`, `menge`, `preis`) VALUES
+(1, 95, 2, 3, 1100),
+(2, 95, 1, 3, 800),
+(3, 95, 3, 1, 1800),
+(4, 96, 1, 2, 800),
+(5, 96, 2, 2, 1100),
+(6, 96, 3, 1, 1800),
+(7, 97, 1, 2, 800),
+(8, 97, 2, 2, 1100),
+(9, 98, 1, 1, 800),
+(10, 98, 2, 1, 1100),
+(11, 98, 3, 1, 1800),
+(12, 99, 1, 2, 800),
+(13, 99, 2, 2, 1100),
+(14, 99, 3, 1, 1800),
+(15, 99, 5, 1, 800);
+
+--
 -- Triggers `verlauf`
 --
 DROP TRIGGER IF EXISTS `ORDER_ANZAHL`;
 DELIMITER $$
-CREATE TRIGGER `ORDER_ANZAHL` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT sum(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
+CREATE TRIGGER `ORDER_ANZAHL` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT count(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
 DROP TRIGGER IF EXISTS `ORDER_ANZAHL_insert`;
 DELIMITER $$
-CREATE TRIGGER `ORDER_ANZAHL_insert` AFTER INSERT ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT sum(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
+CREATE TRIGGER `ORDER_ANZAHL_insert` AFTER INSERT ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT count(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
 DROP TRIGGER IF EXISTS `SUM`;
 DELIMITER $$
-CREATE TRIGGER `SUM` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis) FROM verlauf WHERE orders.id = verlauf.order_id)
+CREATE TRIGGER `SUM` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis*menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
 DROP TRIGGER IF EXISTS `SUM_insert`;
 DELIMITER $$
-CREATE TRIGGER `SUM_insert` AFTER INSERT ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis) FROM verlauf WHERE orders.id = verlauf.order_id)
+CREATE TRIGGER `SUM_insert` AFTER INSERT ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis*menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
 
@@ -167,25 +213,25 @@ ALTER TABLE `verlauf`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `produkte`
 --
 ALTER TABLE `produkte`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `verlauf`
 --
 ALTER TABLE `verlauf`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

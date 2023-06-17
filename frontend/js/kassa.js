@@ -29,7 +29,7 @@ $(document).ready(function () {
     var stored = sessionStorage.getItem('cart');
     var cartData = JSON.parse(stored);
 
-    if (cartData) {
+    if (cartData[0]) {
 
       $('#vorname').html('Vorname: ' + response.vorname);
       $('#nachname').html('Nachname: ' + response.nachname);

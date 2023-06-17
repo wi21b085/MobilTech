@@ -16,6 +16,9 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $product = new productClass($row["id"], $row['name'], $row['firma'], $row['bild'], $row['preis'], $row['kurzbeschreibung'], $row['text'], $row['bewertung']);
     array_push($searched_product_list, $product);
 }
+if ($searched_product_list == null){
+    $searched_product_list["item"] = "notFound";
+}
 
 $stmt->close();
 ?>

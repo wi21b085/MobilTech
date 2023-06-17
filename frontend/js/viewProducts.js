@@ -98,7 +98,15 @@ function ladeProduct(product) {
             $productCard.remove();
         }
     });
+    $("#all").on("click", function () {
+        $productCard.append($cardImg, $cardBody);
+        $cardBody.append($cardTitle, $cardText, $cardPreis, cardStarts, $cardLink);
+        $('.product-placeholder').append($productCard);
+        $ratingInputs.each(function () {
+            $(this).prop('checked', false);
+        });
 
+    });
     var $artInput = $('button[name="art"]');
     $artInput.on("click", function () {
         var art = $(this).val();
@@ -121,15 +129,7 @@ function ladeProduct(product) {
     // var apple = $('#apple').attr('value');
     // var huawei = $('#huawei').attr('value');
 
-    $("#all").on("click", function () {
-        $productCard.append($cardImg, $cardBody);
-        $cardBody.append($cardTitle, $cardText, $cardPreis, cardStarts, $cardLink);
-        $('.product-placeholder').append($productCard);
-        $ratingInputs.each(function () {
-            $(this).prop('checked', false);
-        });
-
-    });
+   
 }
 
 
