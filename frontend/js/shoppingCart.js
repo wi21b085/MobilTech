@@ -49,7 +49,6 @@ function addToCart(productId, quantity) {
 
 $(document).ready(function () {
   $("#shopping-cart").append('<span id="counter_cart">0</span>')
-
   var storage = sessionStorage.getItem("cart");
   if (JSON.parse(storage) != null) {
     for (let item of JSON.parse(storage)) {
@@ -118,6 +117,7 @@ function formatCartData(response) {
   $('.offcanvas-body').append($cartItem);
 
   updateTotalSum();
+  cartcount();
 
   function decreaseQuantity(productId) {
     let currentValue = parseInt($quantityInput.val());
@@ -136,10 +136,14 @@ function formatCartData(response) {
         $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
           $cartItem.remove();
           updateTotalSum();
+          cartcount();
+
         });
       } else {
         sessionStorage.setItem("cart", JSON.stringify(cart));
         updateTotalSum();
+        cartcount();
+
       }
     }
   }
@@ -158,6 +162,8 @@ function formatCartData(response) {
     }
 
     updateTotalSum();
+    cartcount();
+
   }
 
   function removeCartItem(productId) {
@@ -172,18 +178,26 @@ function formatCartData(response) {
 
     $cartItem.remove();
     updateTotalSum();
+    cartcount();
+
   }
   
-  $("#counter_cart").text($(".offcanvas-body").find("div.cart-item").length ? $(".offcanvas-body").find("div.cart-item").length : 0)
 
 }
 
+
 updateTotalSum();
+cartcount();
+
+function cartcount(){
+  $("#counter_cart").text($(".offcanvas-body").find("div.cart-item").length);
+
+}
+
 
 function updateTotalSum() {
   let totalSum = 0;
 
-  $("#counter_cart").text($(".offcanvas-body").find("div.cart-item").length);
 
   // console.log($(".offcanvas-body").find("div.cart-item"))
   if ($(".offcanvas-body").find("div.cart-item").length == 0) {
