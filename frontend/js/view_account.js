@@ -1,112 +1,83 @@
 $(document).ready(function () {
     const username = document.cookie.split(';').find(cookie => cookie.includes('username')).split('=')[1];
-  
+
     let url = "../../backend/logic/requestHandler.php";
-  
+
     let config = {
-      url: url,
-      type: "GET",
-      dataType: "json",
-      data: {
-        method: "viewAccount",
-        param: username
-      },
-      success: function (response) {
-        let customer = response;
-        let status = "Aktiv"
-        console.log((customer.status))
-        if(customer.status !== 1){
-        status = "Inaktiv"        
-        }
-        console.log(status);
+        url: url,
+        type: "GET",
+        dataType: "json",
+        data: {
+            method: "viewAccount",
+            param: username
+        },
+        success: function (response) {
+            let customer = response;
+           
+            $('#username').html(customer.username);
+            $('#anrede').html(customer.anrede);
+            $('#vorname').html(customer.vorname);
+            $('#nachname').html(customer.nachname);
+            $('#email').html(customer.email);
+            $('#add').html(customer.adresse);
+            $('#plz').html(customer.plz);
+            $('#ort').html(customer.ort);
 
+            $('#editButton').click(function () {
+                if ($(this).text() === 'Bearbeiten') {
+                    $('#anrede').replaceWith('<input type="text" id="anredeInput" class="borderless-input" value="' + $('#anrede').text() + '">');
+                    $('#vorname').replaceWith('<input type="text" id="vornameInput" class="borderless-input" value="' + $('#vorname').text() + '">');
+                    $('#nachname').replaceWith('<input type="text" id="nachnameInput" class="borderless-input" value="' + $('#nachname').text() + '">');
+                    $('#email').replaceWith('<input type="text" id="emailInput" class="borderless-input" value="' + $('#email').text() + '">');
+                    $('#add').replaceWith('<input type="text" id="addInput" class="borderless-input" value="' + $('#add').text() + '">');
+                    $('#plz').replaceWith('<input type="text" id="plzInput" class="borderless-input" value="' + $('#plz').text() + '">');
+                    $('#ort').replaceWith('<input type="text" id="ortInput" class="borderless-input" value="' + $('#ort').text() + '">');
 
-        $('#username').html(customer.username)
-        $('#status').html(status);
-        $('#vorname').html(customer.vorname );
-        $('#nachname').html(customer.nachname)
-        $('#email').html(customer.email);
-        $('#add').html(customer.adresse + ', ' + customer.plz + ', ' + customer.ort);
-        $('#editButton').click(function () {
-            if ($(this).text() === 'Bearbeiten') {
-            $('#vorname').replaceWith('<input type="text" id="vornameInput" class="borderless-input" value="' + $('#vorname').text() + '">');
-            $('#nachname').replaceWith('<input type="text" id="nachnameInput" class="borderless-input" value="' + $('#nachname').text() + '">');
-            $('#email').replaceWith('<input type="text" id="emailInput" class="borderless-input" value="' + $('#email').text() + '">');
-            $('#add').replaceWith('<input type="text" id="addInput" class="borderless-input" value="' + $('#add').text() + '">');
+                    $(this).text('Submit');
+                } else if ($(this).text() === 'Submit') {
+                    var data = JSON.stringify({
+                        username: customer.username,
+                        anrede: $('#anredeInput').val(),
+                        vorname: $('#vornameInput').val(),
+                        nachname: $('#nachnameInput').val(),
+                        email: $('#emailInput').val(),
+                        adresse: $('#addInput').val(),
+                        plz: $('#plzInput').val(),
+                        ort: $('#ortInput').val()
+                    });
 
-            var status = $('#status').text().trim();
-            if (status === 'Aktiv') {
-            $('#status').append('<button id="aktivButton" class="btn btn-outline-success my-2 my-sm-0" type="button">deaktivieren</button>');
-            }
-            $(this).text('Submit');
-            }
-            else if ($(this).text() === 'Submit') {
-                var statusOriginal = status;
-                var vornameOriginal = $('#vorname').text();
-                var nachnameOriginal = $('#nachname').text();
-                var emailOriginal = $('#email').text();
-                var addOriginal = $('#add').text();
-            
-                var statusEdited = $('#statusInput').val();
-                var vornameEdited = $('#vornameEdited').val();
-                var nachnameEdited = $('#nachnameEdited').val();
-                var emailEdited = $('#emailInput').val();
-                var addEdited = $('#addInput').val();
-            
-                var hasChanges = false;
-            
-                if (statusOriginal !== statusEdited) {
-                  hasChanges = true;
+                    $.ajax({
+                        url: '../../backend/logic/requestHandler.php',
+                        type: 'POST',
+                        data: {
+                            method: "editAccount",
+                            param: data
+                           
+                        },
+                        success: function (response) {
+                            console.log('Data submitted successfully:');
+                            console.log(data);
+                            data = JSON.parse(data);
+
+                            // Replace the input fields with the updated information
+                            $('#anredeInput').replaceWith('<span id="anrede">' + data.anrede + '</span>');
+                            $('#vornameInput').replaceWith('<span id="vorname">' + data.vorname + '</span>');
+                            $('#nachnameInput').replaceWith('<span id="nachname">' + data.nachname + '</span>');
+                            $('#emailInput').replaceWith('<span id="email">' + data.email + '</span>');
+                            $('#addInput').replaceWith('<span id="add">' + data.adresse + '</span>');
+                            $('#plzInput').replaceWith('<span id="plz">' + data.plz + '</span>');
+                            $('#ortInput').replaceWith('<span id="ort">' + data.ort + '</span>');
+
+                            $('#editButton').text('Bearbeiten');
+                        },
+                        error: function (error) {
+                            console.error('Error submitting data:', error);
+                        }
+                    });
                 }
-                if (vornameOriginal!== vornameEdited) {
-                  hasChanges = true;
-                }
-                if(nachnameOriginal !== nachnameEdited){
-                    hasChanges = true;
-                }
-                if (emailOriginal !== emailEdited) {
-                  hasChanges = true;
-                }
-                if (addOriginal !== addEdited) {
-                  hasChanges = true;
-                }
-                if (hasChanges) {
-                  var data = {
-                    status: statusEdited,
-                    varname: vornameEdited,
-                    nachname: nachnameEdited,
-                    email: emailEdited,
-                    add: addEdited
-                  };
-                  $.ajax({
-                    url: '../../backend/logic/requestHandler.php',
-                    type: 'POST',
-                    data:{
-                        method: "editAccount",
-                        param: data
-                    }, 
-                    success: function (response) {
-                      console.log('Data submitted successfully:' + response);
-                      
-                      $('#status').text(statusEdited);
-                      $('#geburtsdatum').text(geburtsdatumEdited);
-                      $('#email').text(emailEdited);
-                      $('#add').text(addEdited);
-            
-                      $('#editButton').text('Bearbeiten');
-                    },
-                    error: function (error) {
-                    
-                      console.error('Error submitting data:', error);
-                    }
-                  });
-                } else {
-                  //Do nothing
-                }
-              }
             });
-      }
-    }
-    $.ajax(config);
+        }
+    };
 
+    $.ajax(config);
 });

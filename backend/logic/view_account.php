@@ -11,6 +11,7 @@ $result = $stmt->get_result();
 if ($row = $result->fetch_assoc()) {
     $customer = array(
         'id' => $row['id'],
+        'anrede' => $row['anrede'],
         'vorname' => $row['vorname'],
         'nachname' => $row['nachname'],
         'username' => $row['username'],

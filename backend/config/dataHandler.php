@@ -120,9 +120,6 @@ class DataHandler
         $response = [];
         include("../logic/edit_account.php");
         return $response;
-        $tab = [];
-        require_once("../logic/view_account.php");
-        return $tab;
     }
     public function bestellen($param){
         session_start();
