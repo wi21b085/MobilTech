@@ -76,6 +76,7 @@ let config = {
                             let $btn_oid = $(this).attr("id");
                             $(".table").hide();
                             $("#table" + $btn_oid).show();
+                            $("#footer").hide();
                             window.print()
                             window.location = "viewVerlauf.html";
                         })
@@ -119,6 +120,8 @@ let config = {
                     let $btn_oid = $(this).attr("id");
                     $(".table").hide();
                     $("#table" + $btn_oid).show();
+                    $("#footer").hide();
+
                     window.print()
                     window.location = "viewVerlauf.html";
                 })
