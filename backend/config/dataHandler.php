@@ -127,5 +127,13 @@ class DataHandler
         require_once("../logic/bestellung_logic.php");
         return $response;
     }
+    public function verifyPassword($param) {
+        require_once("../logic/verify_password.php");
+        return $response;
+    }
+    public function updatePassword($param){
+        require_once("../logic/update_password.php");
+        return $response;
+    }
 
 }

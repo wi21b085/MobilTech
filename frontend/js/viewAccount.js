@@ -13,7 +13,7 @@ $(document).ready(function () {
         },
         success: function (response) {
             let customer = response;
-           
+
             $('#username').html(customer.username);
             $('#anrede').html(customer.anrede);
             $('#vorname').html(customer.vorname);
@@ -45,33 +45,55 @@ $(document).ready(function () {
                         plz: $('#plzInput').val(),
                         ort: $('#ortInput').val()
                     });
-
+                    var password = prompt('Please enter your password:');
+                    if (password === null || password === '') {
+                
+                        return;
+                    }
+                    //Password verification
                     $.ajax({
                         url: '../../backend/logic/requestHandler.php',
                         type: 'POST',
                         data: {
-                            method: "editAccount",
-                            param: data
-                           
+                            method: "verifyPassword",
+                            username: customer.username,
+                            password: password
                         },
-                        success: function (response) {
-                            console.log('Data submitted successfully:');
-                            console.log(data);
-                            data = JSON.parse(data);
+                        success: function (verificationResponse) {
+                            if (verificationResponse === 'success') {
+                                $.ajax({
+                                    url: '../../backend/logic/requestHandler.php',
+                                    type: 'POST',
+                                    data: {
+                                        method: "editAccount",
+                                        param: data
+                                    },
+                                    success: function (response) {
+                                        console.log('Data submitted successfully:');
+                                        console.log(data);
+                                        data = JSON.parse(data);
 
-                            // Replace the input fields with the updated information
-                            $('#anredeInput').replaceWith('<span id="anrede">' + data.anrede + '</span>');
-                            $('#vornameInput').replaceWith('<span id="vorname">' + data.vorname + '</span>');
-                            $('#nachnameInput').replaceWith('<span id="nachname">' + data.nachname + '</span>');
-                            $('#emailInput').replaceWith('<span id="email">' + data.email + '</span>');
-                            $('#addInput').replaceWith('<span id="add">' + data.adresse + '</span>');
-                            $('#plzInput').replaceWith('<span id="plz">' + data.plz + '</span>');
-                            $('#ortInput').replaceWith('<span id="ort">' + data.ort + '</span>');
+                                        // Replace the input fields with the updated information
+                                        $('#anredeInput').replaceWith('<span id="anrede">' + data.anrede + '</span>');
+                                        $('#vornameInput').replaceWith('<span id="vorname">' + data.vorname + '</span>');
+                                        $('#nachnameInput').replaceWith('<span id="nachname">' + data.nachname + '</span>');
+                                        $('#emailInput').replaceWith('<span id="email">' + data.email + '</span>');
+                                        $('#addInput').replaceWith('<span id="add">' + data.adresse + '</span>');
+                                        $('#plzInput').replaceWith('<span id="plz">' + data.plz + '</span>');
+                                        $('#ortInput').replaceWith('<span id="ort">' + data.ort + '</span>');
 
-                            $('#editButton').text('Bearbeiten');
+                                        $('#editButton').text('Bearbeiten');
+                                    },
+                                    error: function (error) {
+                                        console.error('Error submitting data:', error);
+                                    }
+                                });
+                            } else {
+                                alert('Invalid password. Please try again.');
+                            }
                         },
                         error: function (error) {
-                            console.error('Error submitting data:', error);
+                            console.error('Error verifying password:', error);
                         }
                     });
                 }

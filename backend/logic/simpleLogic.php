@@ -63,6 +63,12 @@ class SimpleLogic
             case "bestellen":
                 $result = $this->dh->bestellen($param);
                 break;
+            case "verifyPassword":
+                $result = $this->dh->verifyPassword($param);
+                break;
+            case "updatePassword":
+                $result = this->updatePassword($param);
+                break;
             default:
                 $result = null;
                 break;
