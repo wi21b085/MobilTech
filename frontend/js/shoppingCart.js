@@ -11,12 +11,12 @@ function addToCart(productId, quantity) {
       })
     },
     success: function (response) {
-      var storage = sessionStorage.getItem("cart");
+      var storage = localStorage.getItem("cart");
       console.log(storage);
       var cart = [];
       if (storage == null) {
         cart.push(response);
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
         formatCartData(response)
       }
       else {
@@ -30,9 +30,9 @@ function addToCart(productId, quantity) {
           cart.push(response);
         }
 
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
 
-        var storage_new = sessionStorage.getItem("cart");
+        var storage_new = localStorage.getItem("cart");
         console.log(storage_new);
         $("#cartBody").empty();
         for (let item of JSON.parse(storage_new)) {
@@ -50,7 +50,7 @@ function addToCart(productId, quantity) {
 $(document).ready(function () {
   $("#shopping-cart").append('<span id="counter_cart">0</span>')
 
-  var storage = sessionStorage.getItem("cart");
+  var storage = localStorage.getItem("cart");
   if (JSON.parse(storage) != null) {
     for (let item of JSON.parse(storage)) {
       formatCartData(item);
@@ -121,7 +121,7 @@ function formatCartData(response) {
 
   function decreaseQuantity(productId) {
     let currentValue = parseInt($quantityInput.val());
-    var storage = sessionStorage.getItem("cart");
+    var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var productIndex = cart.findIndex(product => product.productId == productId);
 
@@ -131,14 +131,14 @@ function formatCartData(response) {
 
       if (currentValue === 1) {
         cart.splice(productIndex, 1);
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
 
         $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
           $cartItem.remove();
           updateTotalSum();
         });
       } else {
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
         updateTotalSum();
       }
     }
@@ -148,26 +148,26 @@ function formatCartData(response) {
     let currentValue = parseInt($quantityInput.val());
     $quantityInput.val(currentValue + 1);
 
-    var storage = sessionStorage.getItem("cart");
+    var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var product = cart.find(product => product.productId === productId);
 
     if (product) {
       product.quantity++;
-      sessionStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
     updateTotalSum();
   }
 
   function removeCartItem(productId) {
-    var storage = sessionStorage.getItem("cart");
+    var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var productIndex = cart.findIndex(product => product.productId === productId);
 
     if (productIndex > -1) {
       cart.splice(productIndex, 1);
-      sessionStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
     $cartItem.remove();
