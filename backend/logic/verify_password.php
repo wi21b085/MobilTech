@@ -3,7 +3,8 @@
 $username = $param['username'];
 $password = $param['password'];
 
-$response = retrievePasswordFromDatabase($username,$password);
+$response = array();
+$response["success"] = retrievePasswordFromDatabase($username,$password);
 
 
 function retrievePasswordFromDatabase($username, $password) {

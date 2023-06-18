@@ -62,7 +62,7 @@ $(document).ready(function () {
                             }
                         },
                         success: function (response) {
-                            if (response == true) {
+                            if (response.success == true) {
                                 $.ajax({
                                     url: '../../backend/logic/requestHandler.php',
                                     type: 'POST',
