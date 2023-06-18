@@ -26,7 +26,7 @@ $(document).ready(function () {
 
   function kassa(response) {
 
-    var stored = sessionStorage.getItem('cart');
+    var stored = localStorage.getItem('cart');
     var cartData = JSON.parse(stored);
 
     if (cartData[0]) {
@@ -108,7 +108,7 @@ $(document).ready(function () {
 
       bestellenButton.on("click", function () {
 
-        var produktData = JSON.parse(sessionStorage.getItem('cart'));
+        var produktData = JSON.parse(localStorage.getItem('cart'));
 
         var mengeArray = [];
         var preisArray = [];
@@ -145,7 +145,7 @@ $(document).ready(function () {
             })
           },
           success: function (response) {
-            sessionStorage.removeItem("cart");
+            localStorage.removeItem("cart");
             var url = "../sites/viewProducts.html?success";
             window.location.replace(url);
           },
