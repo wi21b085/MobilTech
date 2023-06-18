@@ -45,14 +45,16 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response.success)
                 console.log(checked)
-                if(response.success){
+                if(response.success != false){
                     window.location = "index.html"
+                }else{
+                    alert("Falsche Benutzerdaten!");
                 }
             },
             error: function (error) {
                 console.log("Error on POST of login")
                 console.log(error)
-                alert("Error")
+                alert("Username/Email oder Passwort fehlt!");
             }
         });
 
