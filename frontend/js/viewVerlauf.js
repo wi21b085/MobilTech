@@ -10,6 +10,42 @@ function ladeVerlauf(verlauf, oid) {
     }
 }
 
+
+
+let config_user = {
+    url: "../../backend/logic/requestHandler.php",
+    type: "GET",
+    dataType: "json",
+    data: {
+        method: "kassa"
+    },
+    success: function (response) {
+        if (response.id !== "false") {
+            userdaten(response);
+            console.log(response)
+        } else {
+            window.location = "login.html"
+            console.log(response)
+        }
+    },
+    error: function () {
+        $('.error').append('<center><div class="alert alert-danger" role="alert" style="width:50%;">The data could not be loaded! :(</div></center>');
+    }
+};
+
+$.ajax(config_user);
+
+
+function userdaten(response) {
+    $('#vorname').html('Vorname: ' + response.vorname);
+    $('#nachname').html('Nachname: ' + response.nachname);
+    $('#email').html('Email: ' + response.email);
+    $('#adresse').html('Adresse: ' + response.adresse);
+    $('#plz').html('PLZ: ' + response.plz);
+    $('#ort').html('Stadt: ' + response.ort);
+}
+
+
 let url = "../../backend/logic/requestHandler.php";
 
 let config = {
@@ -33,13 +69,24 @@ let config = {
                 if (verlauf.order_id !== oid) {
                     if (oid != 0) {
                         let dataRow2 = $('<tr class="test">').appendTo($('#' + oid));
-                        dataRow2.append($('<td>').append('<button class="btn download" id="'+oid+'"><i class="fa fa-download"></i>Download</button>'));
+                        let $button = $('<button>')
+                        $button.attr("class", "btn download")
+                        $button.attr("id", oid)
+                        $button.on("click", function () {
+                            let $btn_oid = $(this).attr("id");
+                            $(".table").hide();
+                            $("#table" + $btn_oid).show();
+                            window.print()
+                            window.location = "viewVerlauf.html";
+                        })
+                        dataRow2.append($('<td>').append($button.append('<i class="fa fa-download"></i>Download</button>')));
                         dataRow2.append($('<td>').text(""));
                         dataRow2.append($('<td>').text(""));
                         dataRow2.append($('<td>').text(""));
-                        dataRow2.append($('<td>').append('<b>'+'Summe:'+'</b>'));
-                        dataRow2.append($('<td>').append('<b>'+gesamtpreis + '€'+'</b>'));
+                        dataRow2.append($('<td>').append('<b>' + 'Summe:' + '</b>'));
+                        dataRow2.append($('<td>').append('<b>' + gesamtpreis + '€' + '</b>'));
                         $(table).append(dataRow2);
+                        $(table).attr('id', "table" + oid);
 
                     }
 
@@ -65,14 +112,24 @@ let config = {
 
             if (oid != 0) {
                 let dataRow2 = $('<tr class="test">').appendTo($('#' + oid));
-                dataRow2.append($('<td>').append('<button class="btn download" id="'+oid+'"><i class="fa fa-download"></i>Download</button>'));
+                let $button = $('<button>')
+                $button.attr("class", "btn download")
+                $button.attr("id", oid)
+                $button.on("click", function () {
+                    let $btn_oid = $(this).attr("id");
+                    $(".table").hide();
+                    $("#table" + $btn_oid).show();
+                    window.print()
+                    window.location = "viewVerlauf.html";
+                })
+                dataRow2.append($('<td>').append($button.append('<i class="fa fa-download"></i>Download</button>')));
                 dataRow2.append($('<td>').text(""));
                 dataRow2.append($('<td>').text(""));
                 dataRow2.append($('<td>').text(""));
-                dataRow2.append($('<td>').append('<b>'+'Summe:'+'</b>'));
-                dataRow2.append($('<td>').append('<b>'+gesamtpreis + '€'+'</b>'));
+                dataRow2.append($('<td>').append('<b>' + 'Summe:' + '</b>'));
+                dataRow2.append($('<td>').append('<b>' + gesamtpreis + '€' + '</b>'));
                 $(table).append(dataRow2);
-
+                $(table).attr('id', "table" + oid);
 
             }
         } else {
@@ -87,12 +144,6 @@ let config = {
 
 $.ajax(config);
 
-$(document).ready(
-    function(){
-        $(".download").on("click", function(){
-          window.print()
-          
-        
-        });
-    }
-)
+
+
+
