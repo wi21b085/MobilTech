@@ -56,11 +56,13 @@ $(document).ready(function () {
                         type: 'POST',
                         data: {
                             method: "verifyPassword",
+                            param:{
                             username: customer.username,
                             password: password
+                            }
                         },
-                        success: function (verificationResponse) {
-                            if (verificationResponse === 'success') {
+                        success: function (response) {
+                            if (response == true) {
                                 $.ajax({
                                     url: '../../backend/logic/requestHandler.php',
                                     type: 'POST',
@@ -69,6 +71,7 @@ $(document).ready(function () {
                                         param: data
                                     },
                                     success: function (response) {
+                                        $("#message-success").text("Konto-date würden aktualisiert !").show().fadeOut(2700);
                                         console.log('Data submitted successfully:');
                                         console.log(data);
                                         data = JSON.parse(data);

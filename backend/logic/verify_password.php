@@ -1,17 +1,12 @@
 <?php
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+$username = $param['username'];
+$password = $param['password'];
 
-$storedPassword = retrievePasswordFromDatabase($username);
-
-
-$response = ($storedPassword === $password);
+$response = retrievePasswordFromDatabase($username,$password);
 
 
-echo json_encode($response);
-
-function retrievePasswordFromDatabase($username) {
+function retrievePasswordFromDatabase($username, $password) {
     
     require_once("../config/dbAccess.php");
 
@@ -19,9 +14,10 @@ function retrievePasswordFromDatabase($username) {
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $stmt->bind_result($storedPassword);
+    
     $stmt->fetch();
     $stmt->close();
 
-    return $storedPassword;
+    return (password_verify($password, $storedPassword));
 }
 ?>

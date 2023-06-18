@@ -67,7 +67,7 @@ class SimpleLogic
                 $result = $this->dh->verifyPassword($param);
                 break;
             case "updatePassword":
-                $result = this->updatePassword($param);
+                $result = $this->dh->updatePassword($param);
                 break;
             default:
                 $result = null;
