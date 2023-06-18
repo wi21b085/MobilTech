@@ -36,6 +36,9 @@ class SimpleLogic
             case "viewProduct":
                 $result = $this->dh->viewProduct();
                 break;
+            case "viewVerlauf":
+                $result = $this->dh->viewVerlauf();
+                break;
             case "viewCustomers":
                 $result = $this->dh->viewCustomers();
                 break;
