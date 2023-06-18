@@ -3,7 +3,7 @@ $(document).ready(function () {
   $('#searchInput').on('input', function () {
     performSearch();
   });
-  
+
 });
 
 
@@ -12,7 +12,7 @@ function performSearch() {
   const main = $("main");
   //const originalMainContent = main.html();
   var typingTimer;
-  var doneTypingInterval = 500; // Delay in milliseconds after user stops typing
+  var doneTypingInterval = 1; // Delay in milliseconds after user stops typing
   clearTimeout(typingTimer); // Clear the previous timer
 
   var searchItem = $("#searchInput").val().trim();
@@ -36,13 +36,14 @@ function performSearch() {
 
             $("#searchMain").remove();
             $("main").hide(); // Clear previous search results
-            $("#navbar").append('<main id="searchMain"></main>');
+            $("#navbar").append('<center><main id="searchMain" style="margin-bottom:100px; margin-top:40px; width:50%;"></main></center>');
             for (var i = 0; i < response.length; i++) {
               var product = response[i];
               searchProduct(product);
             }
           } else {
-            $("#searchMain").remove();
+            if ($("#searchMain"))
+              $("#searchMain").remove();
             $("main").show();
           }
         },
@@ -54,26 +55,33 @@ function performSearch() {
   } else {
     $("#searchMain").remove();
 
-    $("main").show(); // Restore the original content of main
+    $("main").show();
   }
 }
 
 function searchProduct(product) {
   var productHTML = `
+  <div class="container">
+  <center>
   <div class="card mb-3">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="${product.bild}" class="img-fluid rounded-start" alt="Product Image">
+    <div class="row">
+      <div class="col-md-3" style="width: 50%; ">
+        <img src="${product.bild}" class="img-thumbnail img-fluid rounded-start" alt="Product Image" style="width:100px; height:auto;">
       </div>
-      <div class="col-md-8">
+      <div class="col-md-9" style="width: 50%; text-align:left;">
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
           <p class="card-text">Price: ${product.preis}</p>
+          <a href="#" class="btn btn-primary" onclick="addToCart(${product.id}, 1, ${product.preis}, '${product.name}', '${product.bild}')">Kauf</a>
         </div>
       </div>
     </div>
-  </div>
-  `;
+    </div>
+    </center>
+    </div>
+    `;
+
 
   $("#searchMain").append(productHTML);
 }
+

@@ -75,13 +75,12 @@ function ladeProduct(product) {
 
 
     let $cardLink = $('<a>', {
+        href: '#',
         class: 'btn btn-primary',
         text: 'Kauf',
-        click: function() {
-            addToCart(product.id, 1, product.preis, product.name, product.bild);
-        }
+        onclick: `addToCart(${product.id}, 1, ${product.preis}, '${product.name}', '${product.bild}')`
     });
-
+    
 
     $productCard.append($cardImg, $cardBody);
     $cardBody.append($cardTitle, $cardText, $cardPreis, cardStarts, $cardLink);

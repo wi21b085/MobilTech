@@ -11,12 +11,12 @@ function addToCart(productId, quantity) {
       })
     },
     success: function (response) {
-      var storage = sessionStorage.getItem("cart");
+      var storage = localStorage.getItem("cart");
       console.log(storage);
       var cart = [];
       if (storage == null) {
         cart.push(response);
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
         formatCartData(response)
       }
       else {
@@ -30,9 +30,9 @@ function addToCart(productId, quantity) {
           cart.push(response);
         }
 
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
 
-        var storage_new = sessionStorage.getItem("cart");
+        var storage_new = localStorage.getItem("cart");
         console.log(storage_new);
         $("#cartBody").empty();
         for (let item of JSON.parse(storage_new)) {
@@ -50,7 +50,7 @@ function addToCart(productId, quantity) {
 $(document).ready(function () {
   $("#shopping-cart").append('<span id="counter_cart">0</span>')
 
-  var storage = sessionStorage.getItem("cart");
+  var storage = localStorage.getItem("cart");
   if (JSON.parse(storage) != null) {
     for (let item of JSON.parse(storage)) {
       formatCartData(item);
@@ -118,10 +118,11 @@ function formatCartData(response) {
   $('.offcanvas-body').append($cartItem);
 
   updateTotalSum();
+  cartcount();
 
   function decreaseQuantity(productId) {
     let currentValue = parseInt($quantityInput.val());
-    var storage = sessionStorage.getItem("cart");
+    var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var productIndex = cart.findIndex(product => product.productId == productId);
 
@@ -131,15 +132,19 @@ function formatCartData(response) {
 
       if (currentValue === 1) {
         cart.splice(productIndex, 1);
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
 
         $cartItem.css('margin-left', '0').animate({ marginLeft: '-100%' }, 400, function () {
           $cartItem.remove();
           updateTotalSum();
+          cartcount();
+
         });
       } else {
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
         updateTotalSum();
+        cartcount();
+
       }
     }
   }
@@ -148,42 +153,52 @@ function formatCartData(response) {
     let currentValue = parseInt($quantityInput.val());
     $quantityInput.val(currentValue + 1);
 
-    var storage = sessionStorage.getItem("cart");
+    var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var product = cart.find(product => product.productId === productId);
 
     if (product) {
       product.quantity++;
-      sessionStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
     updateTotalSum();
+    cartcount();
+
   }
 
   function removeCartItem(productId) {
-    var storage = sessionStorage.getItem("cart");
+    var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var productIndex = cart.findIndex(product => product.productId === productId);
 
     if (productIndex > -1) {
       cart.splice(productIndex, 1);
-      sessionStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
     $cartItem.remove();
     updateTotalSum();
+    cartcount();
+
   }
   
-  $("#counter_cart").text($(".offcanvas-body").find("div.cart-item").length ? $(".offcanvas-body").find("div.cart-item").length : 0)
 
 }
 
+
 updateTotalSum();
+cartcount();
+
+function cartcount(){
+  $("#counter_cart").text($(".offcanvas-body").find("div.cart-item").length);
+
+}
+
 
 function updateTotalSum() {
   let totalSum = 0;
 
-  $("#counter_cart").text($(".offcanvas-body").find("div.cart-item").length);
 
   // console.log($(".offcanvas-body").find("div.cart-item"))
   if ($(".offcanvas-body").find("div.cart-item").length == 0) {
