@@ -11,7 +11,7 @@ if (isset($_SESSION["rolle"])) {
         $username = $_SESSION["username"];
     }
 
-    $sql = "SELECT o.o_datum AS datum, o.id AS order_id, pr.name AS produkt_name, v.menge AS menge_produkt, v.preis AS preis_produkt, o.endpreis AS gesamtpreis
+    $sql = "SELECT o.o_datum AS datum, o.id AS order_id, pr.name AS produkt_name, v.id AS verlauf_id, v.menge AS menge_produkt, v.preis AS preis_produkt, o.endpreis AS gesamtpreis
         FROM orders o
         INNER JOIN verlauf v ON o.id = v.order_id
         INNER JOIN produkte pr ON v.produkt_id = pr.id
@@ -24,6 +24,7 @@ if (isset($_SESSION["rolle"])) {
     $result = $stmt->get_result();
 
     while ($row = $result->fetch_assoc()) {
+        $row["datum"] = date('d.m.Y', strtotime(substr($row["datum"],0,10)));
         $verlauf_list[] = $row;
     }
 

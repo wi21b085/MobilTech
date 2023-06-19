@@ -59,6 +59,36 @@ $(document).ready(function () {
         }
         row.append($('<td style="text-align:center">').text(customer.admin));
 
+        let span2 = $("<span>")
+        span2.attr("class", "btn btn-info");
+        span2.on("click", function () {
+            $.ajax({
+                url: "../../backend/logic/requestHandler.php",
+                type: "POST",
+                data: {
+                    method: "viewVerlauf",
+                    param: {
+                        username: customer.username
+                    }
+                },
+                success: function (response) {
+                    console.log(response.success)
+                    if (response.success !== false) {
+                        sessionStorage.setItem("order", JSON.stringify(response))
+                        window.location = "adminVerlauf.html"
+                    } else {
+                        alert("Keine Bestellungen vorhanden!")
+                    }
+                },
+                error: function (error) {
+                    console.log("Error on Customizing")
+                    console.log(error)
+                    alert("Keine Bestellungen vorhanden!")
+                }
+            });
+
+        })
+        row.append($('<td>').append(span2.text("Ändern")));
     }
 
     let url = "../../backend/logic/requestHandler.php";
@@ -107,6 +137,7 @@ $(document).ready(function () {
         headerRow.append($('<th>').text('Ort'));
         headerRow.append($('<th>').text('Status'));
         headerRow.append($('<th>').text('Admin'));
+        headerRow.append($('<th>').text('Bestellungen'));
 
         $('<tbody>').appendTo(table);
         $('#viewCustomersTable').append(table);
