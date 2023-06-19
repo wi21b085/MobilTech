@@ -37,6 +37,9 @@ function ladeProduct(product) {
     let $cardText = $('<p>', {
         class: 'card-text',
         text: product.kurzbeschreibung,
+        css: {
+            'height': '120px',
+        }
     });
 
     let $cardPreis = $('<p>', {

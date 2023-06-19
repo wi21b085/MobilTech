@@ -34,6 +34,19 @@ $(document).ready(function () {
                     $('#ort').replaceWith('<input type="text" id="ortInput" class="borderless-input" value="' + $('#ort').text() + '">');
 
                     $(this).text('Submit');
+                    $('#cancelButton').click(function () {
+                        // Replace the input fields with the original information
+                        $('#anredeInput').replaceWith('<span id="anrede">' + customer.anrede + '</span>');
+                        $('#vornameInput').replaceWith('<span id="vorname">' + customer.vorname + '</span>');
+                        $('#nachnameInput').replaceWith('<span id="nachname">' + customer.nachname + '</span>');
+                        $('#emailInput').replaceWith('<span id="email">' + customer.email + '</span>');
+                        $('#addInput').replaceWith('<span id="add">' + customer.adresse + '</span>');
+                        $('#plzInput').replaceWith('<span id="plz">' + customer.plz + '</span>');
+                        $('#ortInput').replaceWith('<span id="ort">' + customer.ort + '</span>');
+                    
+                        $('#editButton').text('Bearbeiten');
+                    });
+                    
                 } else if ($(this).text() === 'Submit') {
                     var data = JSON.stringify({
                         username: customer.username,
@@ -71,9 +84,8 @@ $(document).ready(function () {
                                         param: data
                                     },
                                     success: function (response) {
-                                        $("#message-success").text("Konto-date würden aktualisiert !").show().fadeOut(2700);
-                                        console.log('Data submitted successfully:');
-                                        console.log(data);
+                                        $("#message-success").text("Konto Daten wurden aktualisiert !").show().fadeOut(2700);
+                                        
                                         data = JSON.parse(data);
 
                                         // Replace the input fields with the updated information

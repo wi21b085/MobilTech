@@ -25,6 +25,9 @@ function logout() {
         },
         dataType: "json",
         success: function (response) {
+            alert('Sie sind erfolgreich ausgeloggt !')
+    
+
             console.log(response.success)
             if (response.success) {
                 sessionStorage.clear();

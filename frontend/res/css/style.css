@@ -32,6 +32,9 @@
   border-color: transparent;
   background-color: transparent;
 }
+#cardIndex{
+  height: 150px;
+}
 
 #categories {
   margin-bottom: 100px;
@@ -43,12 +46,6 @@ footer {
 
 main {
   margin-top: 100px;
-
-}
-
-.img-fixed-size {
-  width: 200px;
-  height: 300px;
 
 }
 
@@ -65,7 +62,7 @@ main {
 
 
 .carousel-item .carousel-image {
-  width: 250px;
+  width: 400px;
   height: 350px;
   margin-left: auto;
   padding-right: 20px;
