@@ -77,7 +77,7 @@ function ladeCustomer(customer) {
                 },
                 success: function (response) {
                     console.log(response.success)
-                    if (response.success !== false) {
+                    if (response.success == true) {
                         sessionStorage.setItem("order", JSON.stringify(response))
                         sessionStorage.setItem("user", customer.username)
                         window.location = "adminVerlauf.html"

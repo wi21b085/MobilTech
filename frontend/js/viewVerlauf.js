@@ -62,7 +62,9 @@ let config = {
     success: function (response) {
         console.log(response);
         //wenn wir eine success response habe dann erstellen wir pro order eine neue Tabelle
-        if (response.success !== false) {
+        if (response.leer == true) {
+            $("#viewVerlaufTable").append('<center><div class="alert alert-danger" role="alert" style="width:50%;">Sie haben keine Bestellungen, die Sie einsehen könnten.</div></center>')
+        } else if (response.success !== false) {
             //hier machen wir eine globale oid variable
             let oid = 0;
             //hier machenc wir ein gesamptpreis globale variable

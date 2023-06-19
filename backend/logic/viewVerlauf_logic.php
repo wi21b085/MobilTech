@@ -8,7 +8,7 @@ $username;
 $verlauf_list = array();
 
 if (isset($_SESSION["rolle"])) {
-    if ($_SESSION["rolle"] == "admin") {
+    if ($_SESSION["rolle"] == "admin" && !empty($param)) {
         $username = $param["username"];
     } else {
         $username = $_SESSION["username"];
@@ -35,6 +35,9 @@ if (isset($_SESSION["rolle"])) {
     }
 
     $stmt->close();
+    if($verlauf_list == null){
+        $verlauf_list["leer"] = true;
+    }
 }else{
     //Wenn keine rolle in session gespeichert ist, dann schicken wir ein response false
     $verlauf_list["success"] = false;
