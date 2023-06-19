@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Erstellungszeit: 19. Jun 2023 um 13:02
--- Server-Version: 5.7.34
--- PHP-Version: 8.0.8
+-- Host: 127.0.0.1
+-- Erstellungszeit: 19. Jun 2023 um 19:27
+-- Server-Version: 10.4.27-MariaDB
+-- PHP-Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -152,9 +152,9 @@ INSERT INTO `verlauf` (`id`, `order_id`, `produkt_id`, `menge`, `preis`) VALUES
 --
 -- Trigger `verlauf`
 --
-DROP TRIGGER IF EXISTS `ORDER_ANZAHL`;
+DROP TRIGGER IF EXISTS `ORDER_ANZAHL_delete`;
 DELIMITER $$
-CREATE TRIGGER `ORDER_ANZAHL` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT count(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
+CREATE TRIGGER `ORDER_ANZAHL_delete` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT count(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
 DROP TRIGGER IF EXISTS `ORDER_ANZAHL_insert`;
@@ -162,14 +162,24 @@ DELIMITER $$
 CREATE TRIGGER `ORDER_ANZAHL_insert` AFTER INSERT ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT count(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `SUM`;
+DROP TRIGGER IF EXISTS `ORDER_ANZAHL_update`;
 DELIMITER $$
-CREATE TRIGGER `SUM` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis*menge) FROM verlauf WHERE orders.id = verlauf.order_id)
+CREATE TRIGGER `ORDER_ANZAHL_update` AFTER UPDATE ON `verlauf` FOR EACH ROW UPDATE orders SET anzahl = (SELECT count(menge) FROM verlauf WHERE orders.id = verlauf.order_id)
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `SUM_delete`;
+DELIMITER $$
+CREATE TRIGGER `SUM_delete` AFTER DELETE ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis*menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
 DROP TRIGGER IF EXISTS `SUM_insert`;
 DELIMITER $$
 CREATE TRIGGER `SUM_insert` AFTER INSERT ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis*menge) FROM verlauf WHERE orders.id = verlauf.order_id)
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `SUM_update`;
+DELIMITER $$
+CREATE TRIGGER `SUM_update` AFTER UPDATE ON `verlauf` FOR EACH ROW UPDATE orders SET endpreis = (SELECT sum(preis*menge) FROM verlauf WHERE orders.id = verlauf.order_id)
 $$
 DELIMITER ;
 
