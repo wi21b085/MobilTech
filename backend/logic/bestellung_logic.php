@@ -1,8 +1,9 @@
 <?php 
 include_once("../config/dbaccess.php");
 
-
+//mit array_sum() werde ich die sume von dem ganzen array produktenGesamtPreis rechen
 $endpreis = array_sum($param['produktenGesamtPreis']);
+
 $u_id = $_SESSION['id'];
 $sql = "INSERT INTO orders (u_id) VALUES (?)";
 $stmt = $db->prepare($sql);

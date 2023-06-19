@@ -1,6 +1,6 @@
 $(document).ready(function () {
-
-    function ladeCustomer(customer) {
+//hier appenden wir die Werte in td ein und dann alle in einem tr appenden
+function ladeCustomer(customer) {
         let row = $('<tr>').appendTo($('tbody'));
         row.append($('<td>').text(customer.id));
         row.append($('<td>').text(customer.vorname));
@@ -14,7 +14,9 @@ $(document).ready(function () {
         let span = $("<span>")
 
         span.on("click", function () {
+            //hier bekommen wir den username von der user in cookie
             const username = document.cookie.split(';').find(cookie => cookie.includes('username')).split('=')[1];
+            //https://github.com/mdn/content/issues/2260
             if (customer.username !== username) {
 
                 $.ajax({
@@ -75,6 +77,7 @@ $(document).ready(function () {
                     console.log(response.success)
                     if (response.success !== false) {
                         sessionStorage.setItem("order", JSON.stringify(response))
+                        sessionStorage.setItem("user", customer.username)
                         window.location = "adminVerlauf.html"
                     } else {
                         alert("Keine Bestellungen vorhanden!")
