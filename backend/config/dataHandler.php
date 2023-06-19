@@ -132,6 +132,7 @@ class DataHandler
         return $response;
     }
     public function updatePassword($param){
+        $response = [];
         require_once("../logic/update_password.php");
         return $response;
     }

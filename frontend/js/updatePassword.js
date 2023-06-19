@@ -1,64 +1,75 @@
-$(document).ready(function() {
-    
-    $('#editButton').click(function() {
-    
-      var oldPassword = $('#altePasswordInput').val();
-      var newPassword = $('#neuesPasswordInput').val();
-      var newPasswordRepeat = $('#neuesPasswordWiederholungInput').val();
-  
-     
-      verifyPassword(oldPassword, function(response) {
-        if (response.success) {
-          
-          if (newPassword === newPasswordRepeat) {
-            updatePassword(newPassword, function(updateResponse) {
-              if (updateResponse.success) {
-                alert('Password updated successfully');
-              } else {
-                alert('Failed to update password');
-              }
-            });
-          } else {
-            alert('New password and repeat password do not match');
-          }
-        } else {
-          alert('Incorrect old password');
-        }
-      });
-    });
-  
+$(document).ready(function () {
+  const username = document.cookie.split(';').find(cookie => cookie.includes('username')).split('=')[1];
+  let url = "../../backend/logic/requestHandler.php";
+  let config = {
+    url: url,
+    type: "GET",
+    dataType: "json",
+    data: {
+      method: "viewAccount",
+      param: username
+    },
+    success: function (response) {
+      let customer = response;
 
-    function verifyPassword(oldPassword, callback) {
-      $.ajax({
-        url: '.../../backend/logic/requestHandler.php',
-        method: 'POST',
-        data: { password: oldPassword },
-        dataType: 'json',
-        success: function(response) {
-          callback(response);
-        },
-        error: function() {
-          alert('Failed to verify password');
+      $('#editButton').click(function () {
+        var oldPassword = $('#altePasswordInput').val();
+        var newPassword = $('#neuesPasswordInput').val();
+        var newPasswordRepeat = $('#neuesPasswordWiederholungInput').val();
+
+        if (oldPassword === null || oldPassword === '' || newPassword === null || newPassword === '' || newPasswordRepeat === null || newPasswordRepeat === '') {
+          alert('Kein Eingabefeld darf leer sein!');
+          return;
         }
+        $.ajax({
+          url: '../../backend/logic/requestHandler.php',
+          type: 'POST',
+          data: {
+            method: "verifyPassword",
+            param: {
+              username: customer.username,
+              password: oldPassword
+            }
+          },
+          success: function (response) {
+            if (response.success == true) {
+              if (newPassword !== newPasswordRepeat) {
+                alert('neue Passwort stimmten nicht überein!')
+              }
+              else {
+                $.ajax({
+                  url: '../../backend/logic/requestHandler.php',
+                  type: 'POST',
+                  data: {
+                    method: 'updatePassword',
+                    param: {
+                      newPassword: newPassword,
+                      username: customer.username
+                    }
+                  },
+                  success: function (response3) {
+                    if(response3.success == true){
+                    $("#message-success").text("Password wurde aktualisiert !").show().fadeOut(2700);
+                  }else{
+                    alert('Password muss Groß/klein Buchstaben und Zahl und Zeichen erhalten!')
+                  }
+                  },
+                  error: function (error) {
+                    console.error('Error submitting data:', error);
+                  }
+
+                })
+              }
+            } else {
+              alert('Alte Passwort ist falsch!')
+            }
+          },
+          error: function (error) {
+            console.error('Error verifying password:', error);
+          }
+        });
       });
     }
-  
-    
-    function updatePassword(newPassword, callback) {
-   
-      $.ajax({
-        url: '../../backend/logic/requestHandler.php',
-        method: 'POST',
-        data: { password: newPassword },
-        dataType: 'json',
-        success: function(response) {
-          $("#message-success").text("Password geändert !").show().fadeOut(2700);
-          callback(response);
-        },
-        error: function() {
-      
-          alert('Failed to update password');
-        }
-      });
-    }
-  });
+  }
+  $.ajax(config);
+});

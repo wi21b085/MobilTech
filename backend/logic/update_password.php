@@ -1,25 +1,28 @@
 <?php
+$data = $param;
+$newPassword = $data['newPassword'];
+$username =$data['username'];
 
-$newPassword = $_POST['password'];
+$uppercase = preg_match('@[A-Z]@', $newPassword);
+$lowercase = preg_match('@[a-z]@', $newPassword);
+$number    = preg_match('@[0-9]@', $newPassword);
+$specialChars = preg_match('@[^\w]@', $newPassword);
+$pw_err = false;
+//Passwort-Policy checken
+if ($uppercase == false || $lowercase == false || $number == false || $specialChars  == false || strlen($newPassword) < 8) {
+    $response["success"] = false;
 
-if (updatePasswordInDatabase($newPassword)) {
-    $response['success'] = true;
 } else {
-    $response['success'] = false;
+    $newPassword = htmlspecialchars($newPassword, ENT_QUOTES);
+    $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        require_once("../config/dbaccess.php");
+
+
+        $sql = 'UPDATE user SET password = ? WHERE username = ?';
+        $stmt = mysqli_prepare($db, $sql);
+        mysqli_stmt_bind_param($stmt, "ss", $newPassword, $username);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($db);
+        $response["success"] = true;
 }
-
-
-function updatePasswordInDatabase($newPassword) {
-    
-    require_once("../config/dbaccess.php");
-
-    
-    $stmt = $db->prepare('UPDATE users SET password = ? WHERE username = ?');
-    $stmt->bind_param('ss', $newPassword, $username);
-    $result = $stmt->execute();
-    $stmt->close();
-    $db->close();
-
-    return $result;
-}
-?>
