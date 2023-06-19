@@ -88,6 +88,7 @@ let config = {
                             $(".table").hide();
                             $("#table" + $btn_oid).show();
                             $("#footer").hide();
+                            $("#navbar").hide();
                             window.print()
                             window.location = "viewVerlauf.html";
                         })

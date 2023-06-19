@@ -155,7 +155,7 @@ $(document).ready(function () {
                             console.log(response.success)
                             if (response.success !== false) {
                                 sessionStorage.setItem("order", JSON.stringify(response))
-                                //window.location.reload(); optional seitenreload
+                                window.location.reload(); 
 
                             } else {
                                 alert("Fehler beim Speichern!")

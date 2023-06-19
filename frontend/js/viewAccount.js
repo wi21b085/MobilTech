@@ -25,6 +25,7 @@ $(document).ready(function () {
 
             $('#editButton').click(function () {
                 if ($(this).text() === 'Bearbeiten') {
+
                     $('#anrede').replaceWith('<input type="text" id="anredeInput" class="borderless-input" value="' + $('#anrede').text() + '">');
                     $('#vorname').replaceWith('<input type="text" id="vornameInput" class="borderless-input" value="' + $('#vorname').text() + '">');
                     $('#nachname').replaceWith('<input type="text" id="nachnameInput" class="borderless-input" value="' + $('#nachname').text() + '">');
@@ -34,6 +35,7 @@ $(document).ready(function () {
                     $('#ort').replaceWith('<input type="text" id="ortInput" class="borderless-input" value="' + $('#ort').text() + '">');
 
                     $(this).text('Submit');
+                    $("#cancelButton").show();
                     $('#cancelButton').click(function () {
                         // Replace the input fields with the original information
                         $('#anredeInput').replaceWith('<span id="anrede">' + customer.anrede + '</span>');
@@ -45,6 +47,7 @@ $(document).ready(function () {
                         $('#ortInput').replaceWith('<span id="ort">' + customer.ort + '</span>');
                     
                         $('#editButton').text('Bearbeiten');
+                        $("#cancelButton").hide();
                     });
                     
                 } else if ($(this).text() === 'Submit') {
@@ -98,6 +101,7 @@ $(document).ready(function () {
                                         $('#ortInput').replaceWith('<span id="ort">' + data.ort + '</span>');
 
                                         $('#editButton').text('Bearbeiten');
+                                        $("#cancelButton").hide();
                                     },
                                     error: function (error) {
                                         console.error('Error submitting data:', error);

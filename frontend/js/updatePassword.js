@@ -51,7 +51,7 @@ $(document).ready(function () {
                     if(response3.success == true){
                     $("#message-success").text("Password wurde aktualisiert !").show().fadeOut(2700);
                   }else{
-                    alert('Password muss Groß/klein Buchstaben und Zahl und Zeichen erhalten!')
+                    alert('Passwort muss je 1 Groß-, Klein-Buchstaben, Zahl und Zeichen enthalten und 8 Zeichen lang sein!')
                   }
                   },
                   error: function (error) {

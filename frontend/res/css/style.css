@@ -32,7 +32,8 @@
   border-color: transparent;
   background-color: transparent;
 }
-#cardIndex{
+
+#cardIndex {
   height: 150px;
 }
 
@@ -46,7 +47,10 @@ footer {
 
 main {
   margin-top: 50px;
-  margin-bottom: 50px;
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .carousel-item .row {
@@ -97,3 +101,4 @@ main {
 .billing-info {
   padding-right: 20px;
 }
+

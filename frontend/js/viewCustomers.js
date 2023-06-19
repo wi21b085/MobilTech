@@ -40,6 +40,8 @@ function ladeCustomer(customer) {
                         else alert("Error on Deactivating")
                     }
                 });
+            }else{
+                alert("Eigene Benutzer darf nicht deaktiviert werden!")
             }
         })
 
