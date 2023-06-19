@@ -37,7 +37,7 @@ class SimpleLogic
                 $result = $this->dh->viewProduct();
                 break;
             case "viewVerlauf":
-                $result = $this->dh->viewVerlauf();
+                $result = $this->dh->viewVerlauf($param);
                 break;
             case "viewCustomers":
                 $result = $this->dh->viewCustomers();
@@ -71,6 +71,9 @@ class SimpleLogic
                 break;
             case "updatePassword":
                 $result = $this->dh->updatePassword($param);
+                break;
+            case "adminVerlauf":
+                $result = $this->dh->adminVerlauf($param);
                 break;
             default:
                 $result = null;

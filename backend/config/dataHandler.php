@@ -54,7 +54,7 @@ class DataHandler
         include("../logic/viewCustomers_logic.php");
         return $customer_list;
     }
-    public function viewVerlauf(){
+    public function viewVerlauf($param){
         include("../logic/viewVerlauf_logic.php");
         return $verlauf_list;
     }
@@ -133,6 +133,11 @@ class DataHandler
     }
     public function updatePassword($param){
         require_once("../logic/update_password.php");
+        return $response;
+    }
+    public function adminVerlauf($param) {
+        $response = [];
+        require_once("../logic/adminVerlauf.php");
         return $response;
     }
 
