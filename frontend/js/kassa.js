@@ -146,7 +146,7 @@ $(document).ready(function () {
           },
           success: function (response) {
             localStorage.removeItem("cart");
-            var url = "../sites/viewProducts.html?success";
+            var url = "../sites/viewVerlauf.html?success";
             window.location.replace(url);
           },
           error: function () {
