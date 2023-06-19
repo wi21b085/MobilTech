@@ -1,9 +1,8 @@
 $(document).ready(function () {
 
-    let url = "../../backend/logic/requestHandler.php";
-
-    let config = {
-        url: url,
+    // überprüfe ob Admin die Seite aufruft
+    $.ajax({
+        url: "../../backend/logic/requestHandler.php",
         type: "GET",
         dataType: "json",
         data: {
@@ -14,19 +13,17 @@ $(document).ready(function () {
 
             if (response.admin == true) { // wenn admin eingeloggt dann erstelle Tabelle zum Bearbeiten
                 createTables()
-            } else {
+            } else { // ansonsten geh zu index
                 window.location = "index.html"
             }
         },
 
         error: function () {
-            $('.error').append('<center><div class="alert alert-danger" role="alert" style="width:50%;">The data could not be loaded! :(</div></center>');
+            $('main').append('<center><div class="alert alert-danger" role="alert" style="width:50%;">The data could not be loaded! :(</div></center>');
         }
-    };
+    });
 
-    $.ajax(config);
-
-    function createTables() {
+    function createTables() { // Tabellen werden aus sessionStorage-Daten des Customers erstellt
         var response = JSON.parse(sessionStorage.getItem("order"));
         if (response == null)
             window.location = "index.html";
@@ -42,7 +39,7 @@ $(document).ready(function () {
                 if (oid != 0) {
                     createRow(oid, table, gesamtpreis)
                 }
-
+                // Überschriften für jede neue Bestellung erzeugen,
                 oid = verlauf.order_id
                 gesamtpreis = 0;
                 table = $('<table>').addClass('table table-striped');
@@ -69,8 +66,8 @@ $(document).ready(function () {
             createRow(oid, table, gesamtpreis)
         }
     }
-
-    function ladeVerlauf(verlauf, oid, count) {
+    // Bei jeder neuen Bestellung die Bestellzeilen einfügen, Daten sind aus verlauf-Tabelle in sessionStorage zwischengespeichert
+    function ladeVerlauf(verlauf, oid, count) { //
         if (verlauf.order_id == oid) {
             dataRow = $('<tr>').appendTo($('#' + oid));
             dataRow.append($('<td>').text(verlauf.datum));
@@ -82,7 +79,7 @@ $(document).ready(function () {
         }
     }
 
-    function createRow(oid, table, gesamtpreis) {
+    function createRow(oid, table, gesamtpreis) { // Summenzeile wird erstellt
 
         let dataRow2 = $('<tr class="test">').appendTo($('#' + oid));
         dataRow2.append($('<td>').text(""));
@@ -94,25 +91,25 @@ $(document).ready(function () {
         span.attr("class", "btn btn-info");
         span.on("click", function () {
             if (span.text() == "Speichern") {
-                let mengen = [];
+                let mengen = "";
                 $('.mengeInput' + oid).each(function (i, obj) {
                     let vl = $(obj).val();
-                    // let menge = [];
-                    // menge.push()
-                    mengen.push("{" + $(obj).parent().attr("id") + ":" + vl + "}");
+                    mengen += $(obj).parent().attr("id") + ":" + vl + ",";
                     $(obj).parent().attr("value", vl);
                     $(obj).parent().text(vl);
                 });
+                mengen = mengen.slice(0, -1);
                 console.log(JSON.stringify(mengen))
 
-                bearbeiten(oid, mengen);
+                speichern(oid, mengen); // führe ajax call aus, sobald auf Speichern geklickt wird
 
                 span.text("Bearbeiten")
                 span.attr("class", "btn btn-info");
             } else if (span.text() == "Bearbeiten") {
                 $('.menge' + oid).each(function (i, obj) {
                     $(obj).text("")
-                    $(obj).append('<input type="number" id="mengeInput' + oid + '" class="borderless-input mengeInput' + oid + '" value="' + $(obj).attr("value") + '">');
+                    $(obj).append('<input type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" id="mengeInput' + oid + '" class="borderless-input mengeInput' + oid + '" value="' + $(obj).attr("value") + '">');
+                    // Quelle für oninput-Attribut code: https://stackoverflow.com/posts/46039201/revisions
                 });
 
                 span.text("Speichern");
@@ -129,21 +126,48 @@ $(document).ready(function () {
         $(table).append(dataRow2);
     }
 
-    function bearbeiten(oid, mengen) {
+    function speichern(oid, mengen) { // Senden der aktualisierten Bestell-Mengen an Backend
         $.ajax({
             url: "../../backend/logic/requestHandler.php",
             type: "POST",
             data: {
-                method: "adminVerlauf.php",
+                method: "adminVerlauf",
                 param: JSON.stringify({
-                    vid: oid,
-                    mengen: mengen
+                    oid: oid,
+                    mengen
                 })
             },
             dataType: "json",
             success: function (response) {
                 console.log(response.success)
-                window.location.reload()
+                if (response.success == true) {
+                    // zweiter Ajax-Call sobald das Update erfolgreich war, um die sessionStorage-Daten zu aktualisieren
+                    $.ajax({
+                        url: "../../backend/logic/requestHandler.php",
+                        type: "POST",
+                        data: {
+                            method: "viewVerlauf",
+                            param: {
+                                username: sessionStorage.getItem("user")
+                            }
+                        },
+                        success: function (response) {
+                            console.log(response.success)
+                            if (response.success !== false) {
+                                sessionStorage.setItem("order", JSON.stringify(response))
+                                //window.location.reload(); optional seitenreload
+
+                            } else {
+                                alert("Fehler beim Speichern!")
+                            }
+                        },
+                        error: function (error) {
+                            console.log("Error on Submitting")
+                            console.log(error)
+                            alert("Fehler beim ändern der Bestellung!")
+                        }
+                    });
+                }
             },
             error: function (error) {
                 console.log("Error on POST of editing Order")

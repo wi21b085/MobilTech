@@ -1,15 +1,19 @@
 
 function loadProduct(product) {
   let col = $("<div>", { class: "col-md-3 col-sm-6" });
-  let card = $("<div>", { class: "card mb-3" });
-  let cardTitle = $("<h5>", { class: "card-title", text: product.name });
+  let card = $("<div>", { class: "card mb-3", css: ({height: "100%"})});
+  let cardTitle = $("<h5>", { class: "card-title", text: product.name,css :({"text-align": "center"}) });
   let cardBody = $("<div>", { class: "card-body" });
   let cardImage = $("<img>", { class: "card-img-top img-fixed-size", src: product.bild});
   let cardText = $("<p>", { class: "card-text", text: product.kurzbeschreibung });
   let cardLink = $('<a>', {
     class: 'btn btn-primary',
     text: 'View Category',
-    href: '../sites/viewProducts.html?categorie = ' + encodeURIComponent(product.firma)
+    css: ({
+      bottom : "10px",
+      position : "absolute"
+    }),
+    href: '../sites/viewProducts.html?category=' + encodeURIComponent(product.firma)
   });
   
   
