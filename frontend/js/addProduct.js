@@ -47,9 +47,12 @@ $("#submit").on("click", function (event) {
                 } else {
                     $("#message-success").text("Das Produkt wurde hinzugefügt!").show().fadeOut(2700);
                 }
-                $("#bild").replaceWith('<input type="file" class="form-control-file" name="bild" id="bild" accept="image/jpeg, image/jpg, image/png" required>');
-                emptyAll();
-                addAdminFunction();
+                setTimeout(function() {
+                    window.location = "addProduct.html";
+                }, 2800)
+                //$("#bild").replaceWith('<input type="file" class="form-control-file" name="bild" id="bild" accept="image/jpeg, image/jpg, image/png" required>');
+                //emptyAll();
+                //addAdminFunction();
             } else {
                 $("#message-failed").show().fadeOut(3700);
             }
