@@ -1,5 +1,5 @@
-function addToCart(productId, quantity) {
-  $.ajax({
+function addToCart(productId, quantity) { // Funktion für Hinzufügen eines Produktes in den Warenkorb
+  $.ajax({ // hole mir die restlichen Produktklassen-Daten mithilfe von ID und Quantity
     url: "../../backend/logic/requestHandler.php",
     type: "POST",
     dataType: "json",
@@ -10,23 +10,23 @@ function addToCart(productId, quantity) {
         quantity: quantity
       })
     },
-    success: function (response) {
-      var storage = localStorage.getItem("cart");
+    success: function (response) { // Produktklasse-Daten werden erhalten
+      var storage = localStorage.getItem("cart"); // localStorage mit cart als Key wird abgeprüft
       console.log(storage);
       var cart = [];
-      if (storage == null) {
+      if (storage == null) { // wenn localStorage cart nicht existiert, dann wird neues cart storage erstellt
         cart.push(response);
         localStorage.setItem("cart", JSON.stringify(cart));
-        formatCartData(response)
+        formatCartData(response) // Produkt in Warenkorb tabelle hinzufügen
       }
-      else {
+      else { // wenn cart Storage schon existiert, dann wird in bestehenden Storage hinzugefügt
         var cart = JSON.parse(storage);
         console.log(cart);
-        var existingProduct = cart.find(product => product.productId === response.productId);
-        if (existingProduct) {
+        var existingProduct = cart.find(product => product.productId === response.productId); // Abfragen ob Produkt schon im Warenkorb existiert
+        if (existingProduct) { // wenn schon in -> dann Anzahl im Warenkorb erhöhen
           console.log(existingProduct);
           existingProduct.quantity += quantity;
-        } else {
+        } else { // ansonsten in storage hinzufügen
           cart.push(response);
         }
 
@@ -34,9 +34,9 @@ function addToCart(productId, quantity) {
 
         var storage_new = localStorage.getItem("cart");
         console.log(storage_new);
-        $("#cartBody").empty();
+        $("#cartBody").empty(); // warenkorb-tabelle löschen
         for (let item of JSON.parse(storage_new)) {
-          formatCartData(item);
+          formatCartData(item); // tabelle neu erstellen mit zusätzlichen Daten
         }
       }
 
@@ -48,16 +48,16 @@ function addToCart(productId, quantity) {
 }
 
 $(document).ready(function () {
-  $("#shopping-cart").append('<span id="counter_cart">0</span>')
+  $("#shopping-cart").append('<span id="counter_cart">0</span>') // Counter für Warenkorb
 
   var storage = localStorage.getItem("cart");
-  if (JSON.parse(storage) != null) {
+  if (JSON.parse(storage) != null) { // wenn localStorage cart schon zu Beginn existiert, dann erstelle die Warenkorb-Tabelle
     for (let item of JSON.parse(storage)) {
       formatCartData(item);
     }
   }
 })
-function formatCartData(response) {
+function formatCartData(response) { // Darstellung des Produkt im Warenkorb 
   console.log(response)
   let $cartItem = $('<div>', {
     class: 'cart-item d-flex align-items-center border-bottom py-3',
@@ -120,7 +120,7 @@ function formatCartData(response) {
   updateTotalSum();
   cartcount();
 
-  function decreaseQuantity(productId) {
+  function decreaseQuantity(productId) { // Anzahl verringern, wenn auf Minus in der Tabelle geklickt wird
     let currentValue = parseInt($quantityInput.val());
     var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
@@ -149,7 +149,7 @@ function formatCartData(response) {
     }
   }
 
-  function increaseQuantity(productId) {
+  function increaseQuantity(productId) { // Anzahl erhöhen, wenn auf Plus in der Tabelle geklickt wird
     let currentValue = parseInt($quantityInput.val());
     $quantityInput.val(currentValue + 1);
 
@@ -167,7 +167,7 @@ function formatCartData(response) {
 
   }
 
-  function removeCartItem(productId) {
+  function removeCartItem(productId) { // Produkt aus Warenkorb entfernen wenn es 0 ist oder entfernt wird
     var storage = localStorage.getItem("cart");
     var cart = JSON.parse(storage);
     var productIndex = cart.findIndex(product => product.productId === productId);
@@ -196,7 +196,7 @@ function cartcount(){
 }
 
 
-function updateTotalSum() {
+function updateTotalSum() { // Summe des Warenkorbs berechnen und darstellen
   let totalSum = 0;
 
 
@@ -222,7 +222,7 @@ function updateTotalSum() {
     $('.offcanvas-body').append($totalSumElement);
 
     $('#kaufen-button').remove();
-    let $kaufenButton = $('<button>', {
+    let $kaufenButton = $('<button>', { // Erstellung des Kaufen button wenn Produkte im Warenkorb existieren
       id: 'kaufen-button',
       class: 'btn btn-primary',
       text: 'Kassa'

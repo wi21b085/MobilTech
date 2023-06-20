@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     let url = "../../backend/logic/requestHandler.php";
 
-    let config = {
+    let config = { // hier werden die Daten des Users aus dem Backend mittels cookie geholt
         url: url,
         type: "GET",
         dataType: "json",
@@ -11,7 +11,7 @@ $(document).ready(function () {
             method: "viewAccount",
             param: username
         },
-        success: function (response) {
+        success: function (response) { // hier werden die erhaltenen Daten in die Seite eingefügt
             let customer = response;
 
             $('#username').html(customer.username);
@@ -23,8 +23,8 @@ $(document).ready(function () {
             $('#plz').html(customer.plz);
             $('#ort').html(customer.ort);
 
-            $('#editButton').click(function () {
-                if ($(this).text() === 'Bearbeiten') {
+            $('#editButton').click(function () { // Wenn der Button fürs Bearbeiten der Daten geklickt wird das hier ausgeführt
+                if ($(this).text() === 'Bearbeiten') { // Wenn der Button-Text "Bearbeiten" lautet, werden die Originalinformationen durch input fields ersetzt
 
                     $('#anrede').replaceWith('<input type="text" id="anredeInput" class="borderless-input" value="' + $('#anrede').text() + '">');
                     $('#vorname').replaceWith('<input type="text" id="vornameInput" class="borderless-input" value="' + $('#vorname').text() + '">');
@@ -34,10 +34,10 @@ $(document).ready(function () {
                     $('#plz').replaceWith('<input type="text" id="plzInput" class="borderless-input" value="' + $('#plz').text() + '">');
                     $('#ort').replaceWith('<input type="text" id="ortInput" class="borderless-input" value="' + $('#ort').text() + '">');
 
-                    $(this).text('Submit');
-                    $("#cancelButton").show();
+                    $(this).text('Speichern');
+                    $("#cancelButton").show(); // Button zum Abbrechen wird angezeigt
                     $('#cancelButton').click(function () {
-                        // Replace the input fields with the original information
+                        // Ersetze die input fields mit den Originalinformationen
                         $('#anredeInput').replaceWith('<span id="anrede">' + customer.anrede + '</span>');
                         $('#vornameInput').replaceWith('<span id="vorname">' + customer.vorname + '</span>');
                         $('#nachnameInput').replaceWith('<span id="nachname">' + customer.nachname + '</span>');
@@ -50,7 +50,7 @@ $(document).ready(function () {
                         $("#cancelButton").hide();
                     });
                     
-                } else if ($(this).text() === 'Submit') {
+                } else if ($(this).text() === 'Speichern') { // Wenn der Button-Text "Speichern" lautet, werden die Originalinformationen durch input fields ersetzt
                     var data = JSON.stringify({
                         username: customer.username,
                         anrede: $('#anredeInput').val(),
@@ -61,7 +61,7 @@ $(document).ready(function () {
                         plz: $('#plzInput').val(),
                         ort: $('#ortInput').val()
                     });
-                    var password = prompt('Please enter your password:');
+                    var password = prompt('Please enter your password:'); // Passwort-Abfrage bei wenn Änderungen gespeichert werden sollen
                     if (password === null || password === '') {
                 
                         return;
@@ -78,7 +78,7 @@ $(document).ready(function () {
                             }
                         },
                         success: function (response) {
-                            if (response.success == true) {
+                            if (response.success == true) { // wenn Passwort richtig, dann ändere Account Daten
                                 $.ajax({
                                     url: '../../backend/logic/requestHandler.php',
                                     type: 'POST',
@@ -91,7 +91,7 @@ $(document).ready(function () {
                                         
                                         data = JSON.parse(data);
 
-                                        // Replace the input fields with the updated information
+                                        // Ersetze die input fields mit den geänderten Konto-Daten
                                         $('#anredeInput').replaceWith('<span id="anrede">' + data.anrede + '</span>');
                                         $('#vornameInput').replaceWith('<span id="vorname">' + data.vorname + '</span>');
                                         $('#nachnameInput').replaceWith('<span id="nachname">' + data.nachname + '</span>');
@@ -107,11 +107,11 @@ $(document).ready(function () {
                                         console.error('Error submitting data:', error);
                                     }
                                 });
-                            } else {
+                            } else { // Fehler wenn PW falsch
                                 alert('Invalid password. Please try again.');
                             }
                         },
-                        error: function (error) {
+                        error: function (error) { // PW validierung fehlgeschlagen
                             console.error('Error verifying password:', error);
                         }
                     });

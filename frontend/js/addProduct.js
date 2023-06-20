@@ -1,4 +1,4 @@
-$("#submit").on("click", function (event) {
+$("#submit").on("click", function (event) { 
     event.preventDefault();
 
     var formData = new FormData();
@@ -13,7 +13,7 @@ $("#submit").on("click", function (event) {
         bild = fileInput.files[0];
     };
 
-    if ($("#submit").text() == "Aktualisieren") {
+    if ($("#submit").text() == "Aktualisieren") { // wenn #submit text Aktualisieren, dann ist das formData etwas anders an BE zu schicken
         formData.append('method', "updateProduct");
 
         formData.append('id', parseInt($("#updateSelection").val()))
@@ -27,7 +27,7 @@ $("#submit").on("click", function (event) {
             formData.append('bild', bild, bild.name);
         }
 
-    } else {
+    } else { // wenn nicht Aktualisieren, dann normal neues Produkt hinzufügen
         formData.append('method', "addProduct");
         formData.append('bild', bild, bild.name);
     }
@@ -38,7 +38,6 @@ $("#submit").on("click", function (event) {
         processData: false,
         contentType: false,
         url: "../../backend/logic/requestHandler.php",
-        //  url: "../../backend/logic/addProduct_logic.php",
         success: function (response) {
             if (response.success) {
                 if ($("#submit").text() == "Aktualisieren") {
@@ -63,7 +62,7 @@ $("#submit").on("click", function (event) {
     });
 });
 
-function checkAdmin() {
+function checkAdmin() { // wenn kein Admin die Seite aufruft, dann wegverlinken
     $.ajax({
         type: "GET",
         data: {
@@ -88,7 +87,7 @@ function checkAdmin() {
 
 checkAdmin();
 
-function addAdminFunction() {
+function addAdminFunction() { // hier werden die options zum selecten gewählt
     $("#updateSelection").empty().append('<option selected id="noUpdate">(Keine Auswahl)</option>');
     $("#submit").text("Hinzufügen")
 
@@ -125,8 +124,8 @@ function optionProduct(product) {
     $("#updateSelection").append($opt);
 }
 
-$('#updateSelection').change(function () {
-    if ($("#updateSelection option:selected").val() == "(Keine Auswahl)") {
+$('#updateSelection').change(function () { // wenn selection geändert wird, dann mache das hier
+    if ($("#updateSelection option:selected").val() == "(Keine Auswahl)") { // bei keine Auswahl neues Produkt hinzufügen
         $("#delete").remove();
         emptyAll();
 
@@ -134,7 +133,7 @@ $('#updateSelection').change(function () {
 
         $("#submit").text("Hinzufügen")
 
-    } else {
+    } else { // bei anderem Hinzufügen und Löschen anzeigen
         $("#delete").remove();
         let id = parseInt($("#updateSelection").val());
         console.log("ID: " + id);
@@ -163,7 +162,7 @@ $('#updateSelection').change(function () {
         $button.text("Löschen")
         $("#form").append($button)
 
-        $button.on("click", function (event) {
+        $button.on("click", function (event) { // wenn gelöscht werden wird, dann ajax call an BE
             event.preventDefault();
 
             $.ajax({
@@ -182,7 +181,7 @@ $('#updateSelection').change(function () {
                         $("#updateSelection").val("(Keine Auswahl)").change();
                         emptyAll();
                         addAdminFunction();
-                    } else {
+                    } else { // wenn Produkt schon bestellt, kann nicht gelöscht werden
                         $("#message-failed").show().fadeOut(3700);
                     }
                 },

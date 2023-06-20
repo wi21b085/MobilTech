@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#register").on("click", function (event) {
+    $("#register").on("click", function (event) { // wenn Button für Registrieren geklickt wird, dann sende die Daten an BE
         event.preventDefault()
 
         $.ajax({
@@ -24,6 +24,11 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 console.log(response.success)
+                if(response.success == true){ // Wenn registrieren erfolgreich, dann leite zu login weiter
+                    window.location = "login.html"
+                } else {
+                    alert("Registrieren fehlgeschlagen!")
+                }
             },
             error: function (error) {
                 console.log("Error on POST of register")

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-
+  // ajax call zur Abfrage der Userdaten für die Bestellung
   let config = {
     url: "../../backend/logic/requestHandler.php",
     type: "GET",
@@ -9,7 +9,7 @@ $(document).ready(function () {
       method: "kassa"
     },
     success: function (response) {
-      if (response.id !== "false") {
+      if (response.id !== "false") { // wenn Userdaten erhalten, dann erstelle Kassa
         kassa(response);
         console.log(response)
       } else {
@@ -131,7 +131,7 @@ $(document).ready(function () {
 
         }
 
-        let config_bestellen = {
+        let config_bestellen = { // ajax call zum bestellen und einfügen in der Datenbank
           url: "../../backend/logic/requestHandler.php",
           type: "POST",
           dataType: "json",

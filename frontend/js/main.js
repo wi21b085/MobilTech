@@ -1,4 +1,4 @@
-function loadNav() {
+function loadNav() { // Navbar laden
 
     let url = "../../backend/logic/nav_logic.php"
   $.ajax({
@@ -16,7 +16,7 @@ function loadNav() {
 
 loadNav();
 
-function logout() {
+function logout() { //logout button Aktion
     $.ajax({
         url: "../../backend/logic/requestHandler.php",
         type: "POST",

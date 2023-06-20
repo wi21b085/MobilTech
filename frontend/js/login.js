@@ -16,16 +16,16 @@ $(document).ready(function () {
         return "";
     }
     function checkCookie() {
-        let username = getCookie("username");
+        let username = getCookie("username"); // cookie mit key username herausfinden
         if (username != "") {
             console.log("Welcome again " + username);
-            $("#loginDiv").empty().append("<p style='text-align:center'>Sie sind bereits angemeldet.</p>")
+            $("#loginDiv").empty().append("<p style='text-align:center'>Sie sind bereits angemeldet.</p>") //login verstecken und Info anzeigen
         }
     }
     
-    checkCookie(),
+    checkCookie() // bei Start der Seite überprüfen ob Cookie mit Username schon existiert, wenn ja, dann Login verstecken
 
-    $("#login").on("click", function (event) {
+    $("#login").on("click", function (event) { // Login BE Call mit Username bzw. Email
         event.preventDefault()
         
         let checked = document.getElementById("check").checked
@@ -45,7 +45,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response.success)
                 console.log(checked)
-                if(response.success != false){
+                if(response.success != false){ // wenn Daten korrekt, dann weiter zu index
                     window.location = "index.html"
                 }else{
                     alert("Falsche Benutzerdaten!");
