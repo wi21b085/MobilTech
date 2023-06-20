@@ -3,7 +3,7 @@
 ## Setup
 
 - GitHub-Repo herunterladen und im htdocs-Ordner hinterlegen - [Link zum Repo](https://github.com/wi21b085/MobilTech)
-- Datenbank _mobiltechdb_ (`utf8_general_ci`) anlegen, SQL-Datei "/backend/config/db/mobiltechdb.sql" Datenbank importieren
+- Datenbank _mobiltechdb_ (`utf8_general_ci`) in phpmyadmin anlegen, dann SQL-Datei "/backend/config/db/mobiltechdb.sql" in Datenbank importieren
 
 - Benutzerkonto für Datenbank hinzufügen (mit globalen Rechten):
   - Benutzername: mobiltechadmin
