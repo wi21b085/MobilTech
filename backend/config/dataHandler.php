@@ -1,5 +1,4 @@
 <?php
-//include("../config/dbaccess.php");
 
 class DataHandler
 {

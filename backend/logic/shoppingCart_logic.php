@@ -23,5 +23,4 @@ $response = array(
     'quantity' => $quantity,
     'bild' => $bild
 );
-
 ?>

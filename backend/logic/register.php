@@ -85,9 +85,9 @@ if (in_array(true, $errors)) {
 } else {
     unset($_SESSION["errors"]);
 }
-//}
 
-//name="..." wird abgeprüft, nicht id="..."
+
+
 $anrede = $anrede;
 $vorname = trim($vorname);
 $nachname = trim($nachname);

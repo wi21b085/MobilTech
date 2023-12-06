@@ -3,13 +3,13 @@
 $data =json_decode($param);
 
 $anrede = $data->anrede;
-        $vorname = $data->vorname;
-        $nachname = $data->nachname;
-        $username = $data->username;
-        $email = $data->email;
-        $adresse = $data->adresse;
-        $plz = $data->plz;
-        $ort = $data->ort;
+$vorname = $data->vorname;
+$nachname = $data->nachname;
+$username = $data->username;
+$email = $data->email;
+$adresse = $data->adresse;
+$plz = $data->plz;
+$ort = $data->ort;
 
 //var_dump($data); // Display the received data
 
@@ -19,6 +19,7 @@ if (empty($anrede) || empty($vorname) || empty($nachname) || empty($email) || em
     $response = array("failed" => false);
 } else {
     include_once("../config/dbaccess.php");
+    //ganzzahl
     $plz = intval($plz);
 
     $sql = "UPDATE user SET `anrede` = ?, `vorname` = ?, `nachname` = ?, `email` = ?, `adresse` = ?, `plz` = ?, `ort` = ? WHERE `username` = ?";

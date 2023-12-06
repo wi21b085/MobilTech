@@ -13,7 +13,6 @@ include_once("../config/dbaccess.php");
         $product = new firmaProductClass( $row['name'], $row['firma'], $row['bild'],  $row['kurzbeschreibung']);
         array_push($product_list, $product);
     }
-    
     $stmt->close();
 
 ?>

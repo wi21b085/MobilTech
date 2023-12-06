@@ -8,6 +8,7 @@ $text = isset($data["text"]) ? htmlspecialchars($data["text"]) : '';
 $kurzbeschreibung = isset($data["kurzbeschreibung"]) ? htmlspecialchars($data["kurzbeschreibung"]) : '';
 
 //var_dump($name, $preis, $firma, $text, $kurzbeschreibung, $bild); // Debugging
+//assosiatives array(key-value pair)
 
 if (empty($name) || empty($preis) || empty($kurzbeschreibung) || empty($text) || empty($firma)) {
     $response = array("failed" => false);
