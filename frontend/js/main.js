@@ -25,19 +25,14 @@ function logout() { //logout button Aktion
         },
         dataType: "json",
         success: function (response) {
-            alert('Sie sind erfolgreich ausgeloggt !')
-    
-
             console.log(response.success)
             if (response.success) {
-                sessionStorage.clear();
-                window.location = "index.html"
             }
         },
         error: function (error) {
-            console.log("Error on POST of logout")
-            console.log(error)
-            alert("Error")
+            alert('Sie sind erfolgreich ausgeloggt !')
+            sessionStorage.clear();
+            window.location = "index.html"
         }
     });
 }
